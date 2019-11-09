@@ -8,11 +8,13 @@ import { NavComponent } from './nav/nav.component';
 import { MatChipsModule, MatInputModule, MatToolbarModule } from '@angular/material';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { SearchRecipeComponent } from './search-recipe/search-recipe.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
-    NavComponent
+    NavComponent,
+    SearchRecipeComponent
   ],
   imports: [
     CommonModule,
