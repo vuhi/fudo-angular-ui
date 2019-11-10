@@ -1,0 +1,62 @@
+<div class="create-recipe-form mt-4">
+  <mat-card class="">
+    <mat-card-header>
+      <mat-card-title>
+        <fa-icon [icon]="faCookieBite" [size]="'lg'" [spin]="true"></fa-icon><span class="title">Recipe</span>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <mat-form-field appearance="fill" class="input-fill-color">
+              <mat-label>Recipe Name</mat-label>
+              <input matInput>
+              <mat-hint>Ex: Browne Cookie</mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="form-group col-md-8 d-flex flex-row align-items-end">
+            <button class="btn btn-outline-primary h-75 ml-5 mb-3"><fa-icon [icon]="faCloudUploadAlt" [size]="'2x'"></fa-icon></button>
+            <span class="font-weight-light h5 mx-5 mb-3">Or</span>
+            <mat-form-field appearance="fill" class="w-50">
+              <mat-label>Images Url</mat-label>
+              <input matInput>
+              <mat-hint>Ex: https://picsum.photo/400/400</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <mat-form-field appearance="fill">
+              <mat-label>Description</mat-label>
+              <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"></textarea>
+              <mat-hint>Ex: To make a delicious snack</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <mat-form-field appearance="fill">
+              <mat-chip-list #chipList aria-label="Tags selection">
+                <mat-chip *ngFor="let tag of tags" [color]="tag?.color" selected [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
+                  {{tag.name}}
+                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="Press enter or type comma to add tags..."
+                   [matChipInputFor]="chipList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   [matChipInputAddOnBlur]="addOnBlur"
+                   (matChipInputTokenEnd)="add($event)">
+              </mat-chip-list>
+            </mat-form-field>
+          </div>
+        </div>
+        <quill-editor></quill-editor>
+      </form>
+    </mat-card-content>
+    <div class="btn-group w-75 ml-auto">
+      <button class="btn btn-success text-white font-weight-bold">CREATE</button>
+      <button class="btn btn-warning font-weight-bold mx-2">CANCEL</button>
+    </div>
+  </mat-card>
+</div>

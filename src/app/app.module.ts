@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,24 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    QuillModule.forRoot({
+      modules: {
+        syntax: false,
+        toolbar: [
+          ['bold', 'italic', 'underline'],
+          ['blockquote'],
+          [{ header: 1 }, { header: 2 }],
+          [{ list: 'ordered'}, { list: 'bullet' }],
+          [{ indent: '-1'}, { indent: '+1' }],
+          [{ size: ['small', 'normal', 'large', 'huge'] }],
+          [{ color: [] }, { background: [] }],
+          [{ font: [] }],
+          [{ align: [] }],
+          ['clean']
+        ]
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

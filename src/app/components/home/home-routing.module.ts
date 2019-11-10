@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './home.component';
 import { SearchRecipeComponent } from './search-recipe/search-recipe.component';
+import {CreateRecipeComponent} from './create-recipe/create-recipe.component';
 
 
 const routes: Routes = [
@@ -15,7 +16,12 @@ const routes: Routes = [
     path: '',
     component: HomeComponent,
     children: [
-      { path: 'search-recipe', component: SearchRecipeComponent }
+      { path: 'search-recipe', component: SearchRecipeComponent },
+      { path: 'create-recipe', component: CreateRecipeComponent },
+      {
+        path: 'admin',
+        loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+      }
     ]
   }
 ];
