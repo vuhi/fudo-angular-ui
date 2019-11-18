@@ -1,73 +1,14 @@
 <div class="recipe-grid">
-  <div class="card recipe-card">
-    <img class="recipe-img" src="http://lorempixel.com/400/600/food" alt="">
-    <div class="card-body">
-      <h4 class="font-weight-bold mb-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad at, corporis esse id numquam porro saepe sit suscipit tempora veniam.</p>
-      <mat-chip-list class="mt-2">
-        <mat-chip color="primary" selected>Primary fish</mat-chip>
-        <mat-chip color="accent" selected>Accent fish</mat-chip>
-      </mat-chip-list>
+  <ng-container *ngFor="let recipe of recipes">
+    <div class="card recipe-card" [routerLink]="['/','recipe', recipe?.id]">
+      <img class="recipe-img" [src]="recipe?.image" alt="Recipe Image">
+      <div class="card-body">
+        <h4 class="font-weight-bold mb-2">{{recipe?.name}}</h4>
+        <p>{{recipe?.description}}</p>
+        <mat-chip-list class="mt-2 ml-auto">
+          <mat-chip *ngFor="let tag of recipe?.tags" [ngStyle]="{'background': tag?.color}" selected>{{tag?.name}}</mat-chip>
+        </mat-chip-list>
+      </div>
     </div>
-  </div>
-  <div class="card recipe-card">
-    <img class="recipe-img" src="http://lorempixel.com/460/500/food" alt="">
-    <div class="card-body">
-      <h4 class="font-weight-bold mb-2">Lorem ipsum dolor sit amet, consectetur.</h4>
-      <mat-chip-list>
-        <mat-chip color="primary" selected>Primary fish</mat-chip>
-      </mat-chip-list>
-    </div>
-  </div>
-  <div class="card recipe-card">
-    <img class="recipe-img" src="http://lorempixel.com/500/300/food" alt="">
-    <div class="card-body">
-      <h4 class="font-weight-bold mb-2">Lorem ipsum dolor sit.</h4>
-    </div>
-  </div>
-  <div class="card recipe-card">
-    <img class="recipe-img" src="http://lorempixel.com/600/600/food" alt="">
-    <div class="card-body">
-      <h4 class="font-weight-bold mb-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
-      <mat-chip-list>
-        <mat-chip color="warn" selected>Primary fish</mat-chip>
-      </mat-chip-list>
-    </div>
-  </div>
-  <div class="card recipe-card">
-    <img class="recipe-img" src="http://lorempixel.com/700/450/food" alt="">
-    <div class="card-body">
-      <h4 class="font-weight-bold mb-2">Lorem ipsum dolor.</h4>
-    </div>
-  </div>
-  <div class="card recipe-card">
-    <img class="recipe-img" src="http://lorempixel.com/750/300/food" alt="">
-    <div class="card-body">
-      <h4 class="font-weight-bold mb-2">Lorem ipsum dolor sit amet, consectetur.</h4>
-    </div>
-  </div>
-  <div class="card recipe-card">
-    <img class="recipe-img" src="http://lorempixel.com/620/520/food" alt="">
-    <div class="card-body">
-      <h4 class="font-weight-bold mb-2">Lorem ipsum.</h4>
-    </div>
-  </div>
-  <div class="card recipe-card">
-    <img class="recipe-img" src="http://lorempixel.com/540/410/food" alt="">
-    <div class="card-body">
-      <h4 class="font-weight-bold mb-2">Lorem ipsum dolor sit amet, consectetur adipisicing.</h4>
-    </div>
-  </div>
-  <div class="card recipe-card">
-    <img class="recipe-img" src="http://lorempixel.com/350/600/food" alt="">
-    <div class="card-body">
-      <h4 class="font-weight-bold mb-2">Lorem ipsum dolor sit amet.</h4>
-    </div>
-  </div>
-  <div class="card recipe-card">
-    <img class="recipe-img" src="http://lorempixel.com/480/700/food" alt="">
-    <div class="card-body">
-      <h4 class="font-weight-bold mb-2">Lorem ipsum dolor sit amet.</h4>
-    </div>
-  </div>
+  </ng-container>
 </div>

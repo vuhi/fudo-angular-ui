@@ -16,12 +16,12 @@ import {
   MatOptionModule, MatSelectModule, MatCardModule, MatDialogModule
 } from '@angular/material';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { SearchRecipeComponent } from './search-recipe/search-recipe.component';
 import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
 import { QuillModule } from 'ngx-quill';
 import { LoginModalComponent } from './login-modal/login-modal.component';
 import {FormsModule} from '@angular/forms';
+import { RecipeComponent } from './recipe/recipe.component';
 
 @NgModule({
   declarations: [
@@ -29,13 +29,13 @@ import {FormsModule} from '@angular/forms';
     NavComponent,
     SearchRecipeComponent,
     CreateRecipeComponent,
-    LoginModalComponent
+    LoginModalComponent,
+    RecipeComponent
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
     FontAwesomeModule,
-    LazyLoadImageModule,
     QuillModule,
 
     MatToolbarModule,

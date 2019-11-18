@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { SearchRecipeComponent } from './search-recipe/search-recipe.component';
 import {CreateRecipeComponent} from './create-recipe/create-recipe.component';
+import { RecipeComponent } from './recipe/recipe.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       { path: 'search-recipe', component: SearchRecipeComponent },
+      { path: 'recipe/:recipeId', component: RecipeComponent },
       { path: 'create-recipe', component: CreateRecipeComponent },
       {
         path: 'admin',
