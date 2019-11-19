@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { QuillModule } from 'ngx-quill';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { QuillModule } from 'ngx-quill';
           ['clean']
         ]
       }
-    })
+    }),
+    PopoverModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

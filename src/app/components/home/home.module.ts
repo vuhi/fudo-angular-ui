@@ -1,27 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { NavComponent } from './nav/nav.component';
-
-import {
-  MatButtonModule,
-  MatChipsModule,
-  MatIconModule,
-  MatInputModule,
-  MatMenuModule,
-  MatToolbarModule,
-  MatFormFieldModule,
-  MatOptionModule, MatSelectModule, MatCardModule, MatDialogModule
-} from '@angular/material';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SearchRecipeComponent } from './search-recipe/search-recipe.component';
 import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
-import { QuillModule } from 'ngx-quill';
 import { LoginModalComponent } from './login-modal/login-modal.component';
-import {FormsModule} from '@angular/forms';
 import { RecipeComponent } from './recipe/recipe.component';
+
+import {
+  MatButtonModule,  MatChipsModule,  MatIconModule,  MatInputModule,
+  MatMenuModule,  MatToolbarModule,  MatFormFieldModule,  MatOptionModule,
+  MatSelectModule, MatCardModule, MatDialogModule
+} from '@angular/material';
+
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { QuillModule } from 'ngx-quill';
+import { PopoverModule } from 'ngx-bootstrap/popover';
+
 
 @NgModule({
   declarations: [
@@ -34,9 +32,11 @@ import { RecipeComponent } from './recipe/recipe.component';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     HomeRoutingModule,
     FontAwesomeModule,
     QuillModule,
+    PopoverModule.forRoot(),
 
     MatToolbarModule,
     MatInputModule,
@@ -48,8 +48,7 @@ import { RecipeComponent } from './recipe/recipe.component';
     MatOptionModule,
     MatSelectModule,
     MatCardModule,
-    FormsModule,
-    MatDialogModule,
+    MatDialogModule
   ],
   entryComponents: [
     LoginModalComponent,

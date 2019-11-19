@@ -1,32 +1,107 @@
 .recipe-detail-card {
   display: grid;
   grid-template-rows: auto auto auto auto auto;
+  grid-gap: 1rem;
   border: 1px solid rgba(220, 220, 220, 0.8);
   border-radius: .5rem;
-  grid-gap: 1rem;
   box-shadow: 0.3rem 0.3rem 0.6rem 0 rgba(0,0,0,0.1);
+  margin-top: 1rem;
 
   .recipe-header {
     display: grid;
-    grid-template-columns: auto auto;
-    background: #ff8f58;
-    color: white;
-    padding: 2rem 1.5rem;
+    grid-template-columns: 1fr auto;
 
-    .recipe-name {
-      font-size: 2rem;
-      font-weight: bold;
-      letter-spacing: 2px;
+    background-image: linear-gradient(120deg, #ff8f58 0%, #f6d365 100%);
+    color: white;
+    height: 9rem;
+    align-items: center;
+
+    .recipe-info {
+      margin-left: 1.5rem;
+
+      .recipe-name {
+        font-size: 2rem;
+        font-weight: bold;
+        letter-spacing: 2px;
+      }
+
+
+      .recipe-interaction {
+        display: flex;
+        flex-direction: row;
+        .say-cheese-num, .say-cook-num {
+          font-size: 1.2rem;
+          font-weight: bold;
+          letter-spacing: 1px;
+          margin: 0 .5rem 0 0;
+        }
+        fa-icon {
+          cursor: pointer;
+          font-size: 1.5rem;
+        }
+      }
     }
 
     .recipe-owner {
-      font-size: 1.8rem;
-      text-align: right;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      height: 100%;
+      min-width: 10rem;
+      padding: 0 1.5rem;
+      font-size: 1.4rem;
+
+
+      &:after {
+        content: '';
+        position: absolute;
+        left: -50%;
+        width: 150%;
+        height: 100%;
+        clip-path: polygon(100% 0%, 100% 49%, 100% 100%, 50% 100%, 0% 50%, 50% 0);
+        background-color: rgba(0,0,0,.08);
+      }
+
+      &:before {
+        content: '';
+        position: absolute;
+        left: -80%;
+        width: 180%;
+        height: 100%;
+        clip-path: polygon(100% 0%, 100% 49%, 100% 100%, 50% 100%, 0% 50%, 50% 0);
+        background-color: rgba(246, 243, 110, 0.3);
+      }
+
+      .owner-img {
+        position: relative;
+        z-index: 3;
+        width: 5rem;
+        height: 4rem;
+        border-radius: .8rem;
+        border: 1px solid white;
+      }
+
+      .owner-name {
+        position: relative;
+        z-index: 3;
+        color: white;
+        font-weight: 600;
+      }
     }
   }
 
   .recipe-r-1, .recipe-r-2, .recipe-r-3, .recipe-r-4 {
     padding: 0 1.5rem 0 1.5rem;
+  }
+
+  .recipe-r-3 fa-icon.ml-1, .recipe-r-4 fa-icon {
+    cursor: pointer;
+    color: #2ecc71;
+    &:hover {
+      color: #f09819;
+    }
   }
 
   .recipe-r-1 {
@@ -109,9 +184,11 @@
 
       .step {
         display: grid;
-        grid-template-columns: auto 1fr;
+        grid-template-columns: auto 1fr auto;
         box-shadow: 0.1rem 0.2rem 0.3rem 0 rgba(0,0,0,0.1);
         border-radius: .4rem;
+        border: 1px solid rgba(220, 220, 220, 0.8);
+        align-items: center;
         .step-number {
           display: grid;
           align-items: center;
@@ -125,9 +202,20 @@
         }
         .step-description {
           padding: .5rem;
-          border: 1px solid rgba(220, 220, 220, 0.8);
         }
       }
     }
+  }
+}
+
+:host ::ng-deep .popover {
+  max-width: 800px;
+  border: 1px solid rgba(220, 220, 220, 0.8);
+  box-shadow: 0.3rem 0.3rem 0.6rem 0 rgba(0,0,0,0.1);
+
+  .popover-body {
+    font-size: 1rem !important;
+    font-weight: 600;
+    color:  #ff8f58 !important;
   }
 }

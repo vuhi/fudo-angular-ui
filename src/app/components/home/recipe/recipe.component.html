@@ -1,9 +1,18 @@
-<p>recipe works! {{recipeId}}</p>
-
 <div class="recipe-detail-card">
   <div class="recipe-header">
-    <div class="recipe-name">Lorem ipsum dolor sit amet.</div>
-    <div class="recipe-owner">Lorem ipsum dol</div>
+    <div class="recipe-info">
+      <div class="recipe-name">Lorem ipsum dolor sit amet.</div>
+      <div class="recipe-interaction">
+        <div class="say-cheese mr-3">
+          <span class="say-cheese-num">365</span><fa-icon [icon]="faCheese"></fa-icon>
+        </div>
+        <div class="say-cook"><span class="say-cook-num">1020</span><fa-icon [icon]="faFire"></fa-icon></div>
+      </div>
+    </div>
+    <div class="recipe-owner">
+      <img class="owner-img" src="https://picsum.photos/300/300" alt="User Avatar">
+      <div class="owner-name">XYZ-FoodLover</div>
+    </div>
   </div>
   <div class="recipe-r-1">
     <img class="recipe-image" src="https://images.wallpaperscraft.com/image/chicken_barbecue_meat_juicy_109095_1600x1200.jpg">
@@ -31,28 +40,28 @@
         <span class="amount">20</span>
         <span class="unit">lb</span>
         <span class="ingredient-name">Lorem ipsum dolor sit amet, consectetur adipisicing</span>
-        <fa-icon [icon]="faQuestionCircle" class="text-success ml-1" [size]="'lg'"></fa-icon>
+        <fa-icon [icon]="faQuestionCircle" class="ml-1" [size]="'lg'"></fa-icon>
       </div>
       <div  class="ingredient">
         <fa-icon [icon]="faTags" [flip]="'both'" class="mr-3"></fa-icon>
         <span class="amount">20</span>
         <span class="unit">lb</span>
         <span class="ingredient-name">Lorem ipsum dolor sit amet, consectetur adipisicing</span>
-        <fa-icon [icon]="faQuestionCircle" class="text-success ml-1" [size]="'lg'"></fa-icon>
+        <fa-icon [icon]="faQuestionCircle" class="ml-1" [size]="'lg'"></fa-icon>
       </div>
       <div  class="ingredient">
         <fa-icon [icon]="faTags" [flip]="'both'" class="mr-3"></fa-icon>
         <span class="amount">20</span>
         <span class="unit">lb</span>
         <span class="ingredient-name">Lorem ipsum dolor sit amet, consectetur adipisicing</span>
-        <fa-icon [icon]="faQuestionCircle" class="text-success ml-1" [size]="'lg'"></fa-icon>
+        <fa-icon [icon]="faQuestionCircle" class="ml-1" [size]="'lg'"></fa-icon>
       </div>
       <div  class="ingredient">
         <fa-icon [icon]="faTags" [flip]="'both'" class="mr-3"></fa-icon>
         <span class="amount">20</span>
         <span class="unit">lb</span>
         <span class="ingredient-name">Lorem ipsum dolor sit amet, consectetur adipisicing</span>
-        <fa-icon [icon]="faQuestionCircle" class="text-success ml-1" [size]="'lg'"></fa-icon>
+        <fa-icon [icon]="faQuestionCircle" class="ml-1" [size]="'lg'"></fa-icon>
       </div>
     </div>
   </div>
@@ -60,12 +69,13 @@
     <h4>Direction</h4>
     <div class="recipe-direction">
       <div class="step">
-        <span class="step-number">1</span>
-        <span class="step-description">
+        <div class="step-number">1</div>
+        <div class="step-description">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit.
           Minus nostrum porro saepe? Aliquid, aperiam commodi dolor doloremque esse excepturi iste nisi nulla,
           numquam obcaecati pariatur porro possimus totam veniam, voluptates?
-        </span>
+        </div>
+        <fa-icon [icon]="faExclamationCircle" class="mx-3" [size]="'lg'"></fa-icon>
       </div>
       <div class="step">
         <div class="step-number">2</div>
@@ -74,22 +84,25 @@
           Minus nostrum porro saepe? Aliquid, aperiam commodi dolor doloremque esse excepturi iste nisi nulla,
           numquam obcaecati pariatur porro possimus totam veniam, voluptates?
         </div>
+        <fa-icon [icon]="faExclamationCircle" class="mx-3" [size]="'lg'"></fa-icon>
       </div>
       <div class="step">
-        <span class="step-number">3</span>
-        <span class="step-description">
+        <div class="step-number">3</div>
+        <div class="step-description">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit.
           Minus nostrum porro saepe? Aliquid, aperiam commodi dolor doloremque esse excepturi iste nisi nulla,
           numquam obcaecati pariatur porro possimus totam veniam, voluptates?
-        </span>
+        </div>
+        <fa-icon [icon]="faExclamationCircle" class="mx-3" [size]="'lg'"></fa-icon>
       </div>
       <div class="step">
-        <span class="step-number">4</span>
-        <span class="step-description">
+        <div class="step-number">4</div>
+        <div class="step-description" #pop="bs-popover" [popover]="tip" [popoverTitle]="'Tips'" placement="top" triggers="focus" >
           Lorem ipsum dolor sit amet, consectetur adipisicing elit.
           Minus nostrum porro saepe? Aliquid, aperiam commodi dolor doloremque esse excepturi iste nisi nulla,
           numquam obcaecati pariatur porro possimus totam veniam, voluptates?
-        </span>
+        </div>
+        <fa-icon [icon]="faExclamationCircle" class="mx-3" [size]="'lg'" (click)="pop.toggle()"></fa-icon>
       </div>
     </div>
   </div>

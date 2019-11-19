@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { faTags, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import { faTags, faQuestionCircle, faCheese, faFire, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-recipe',
@@ -11,7 +11,16 @@ import { faTags, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 export class RecipeComponent implements OnInit {
 
   faTags = faTags;
+  faFire = faFire;
+  faCheese = faCheese;
+  faExclamationCircle = faExclamationCircle;
   faQuestionCircle = faQuestionCircle;
+
+  panelOpenState = false;
+  tip = `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet,
+    consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem
+    ipsum dolor sit amet,
+    consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit.`;
   constructor(private route: ActivatedRoute) {}
 
   get recipeId(): string {
