@@ -25,20 +25,9 @@
         letter-spacing: 2px;
       }
 
-
       .recipe-interaction {
         display: flex;
         flex-direction: row;
-        .say-cheese-num, .say-cook-num {
-          font-size: 1.2rem;
-          font-weight: bold;
-          letter-spacing: 1px;
-          margin: 0 .5rem 0 0;
-        }
-        fa-icon {
-          cursor: pointer;
-          font-size: 1.5rem;
-        }
       }
     }
 
@@ -52,7 +41,6 @@
       min-width: 10rem;
       padding: 0 1.5rem;
       font-size: 1.4rem;
-
 
       &:after {
         content: '';
@@ -209,7 +197,6 @@
 }
 
 :host ::ng-deep .popover {
-  max-width: 800px;
   border: 1px solid rgba(220, 220, 220, 0.8);
   box-shadow: 0.3rem 0.3rem 0.6rem 0 rgba(0,0,0,0.1);
 

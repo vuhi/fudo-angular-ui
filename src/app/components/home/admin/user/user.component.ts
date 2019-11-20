@@ -22,6 +22,7 @@ export class UserComponent implements OnInit {
   }
 }
 
+// NEED TO REMOVE THAT & USE USER MODEL
 export interface User {
   id: number;
   name: string;

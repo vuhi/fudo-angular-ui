@@ -30,6 +30,8 @@ $fudo-angular-ui-theme: mat-light-theme($fudo-angular-ui-primary, $fudo-angular-
 @import url('~quill/dist/quill.bubble.css');
 @import url('~quill/dist/quill.snow.css');
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700&display=swap');
+@import url('~ngx-toastr/toastr.css');
+
 *, *:before, *:after {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -37,6 +39,16 @@ $fudo-angular-ui-theme: mat-light-theme($fudo-angular-ui-primary, $fudo-angular-
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: 'Montserrat', sans-serif; 	text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased;}
+
+.custom-toastr {
+  width: 400px !important;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  .toast-title {
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+}
+
 @media screen and (min-width: 992px) {
   .container-fluid {
     width: 85%;
