@@ -1,109 +1,70 @@
 <div class="recipe-detail-card">
   <div class="recipe-header">
     <div class="recipe-info">
-      <div class="recipe-name">Lorem ipsum dolor sit amet.</div>
+      <div class="recipe-name">{{recipe?.name}}</div>
       <div class="recipe-interaction">
         <div class="say-cheese mr-3">
-          <span class="say-cheese-num">365</span><fa-icon [icon]="faCheese"></fa-icon>
+          <app-interaction-icon [recipeId]="recipe?.id" [icon]="faCheese" [num]="recipe?.numberLiked"></app-interaction-icon>
         </div>
-        <div class="say-cook"><span class="say-cook-num">1020</span><fa-icon [icon]="faFire"></fa-icon></div>
+        <div class="say-cook">
+          <app-interaction-icon [recipeId]="recipe?.id" [icon]="faFire" [num]="recipe?.numberTried"></app-interaction-icon>
+        </div>
       </div>
     </div>
     <div class="recipe-owner">
-      <img class="owner-img" src="https://picsum.photos/300/300" alt="User Avatar">
-      <div class="owner-name">XYZ-FoodLover</div>
+      <img class="owner-img" [src]="recipe?.user?.image" alt="User Avatar" (error)="useUserPlaceHolder($event)">
+      <div class="owner-name">{{recipe?.user?.userName}}</div>
     </div>
   </div>
   <div class="recipe-r-1">
-    <img class="recipe-image" src="https://images.wallpaperscraft.com/image/chicken_barbecue_meat_juicy_109095_1600x1200.jpg">
-    <div class="recipe-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias animi asperiores blanditiis consequuntur corporis dolorem dolorum eligendi incidunt, iste libero magnam mollitia neque officiis quaerat qui sint tenetur ullam voluptatum.</div>
+    <img class="recipe-image" [src]="recipe?.image" alt="Recipe Image" (error)="useRecipePlaceHolder($event)">
+    <div class="recipe-description">
+      {{recipe?.description}}
+      <mat-chip-list class="mt-2 ml-auto">
+        <mat-chip *ngFor="let tag of recipe?.tags" [ngStyle]="{'background': tag?.color}" selected>{{tag?.name}}</mat-chip>
+      </mat-chip-list>
+    </div>
   </div>
   <div class="recipe-r-2">
     <div class="recipe-prep">
       <div class="recipe-time-icon"><i class="material-icons">room_service</i><span>PREP TIME</span></div>
-      <div>10 minutes</div>
+      <div>{{recipe?.prepTime}} minutes</div>
     </div>
     <div class="recipe-cook">
       <div class="recipe-time-icon"><i class="material-icons">outdoor_grill</i><span>COOKING TIME</span></div>
-      <div>20 minutes</div>
+      <div>{{recipe?.cookTime}} minutes</div>
     </div>
     <div class="recipe-ready">
       <div class="recipe-time-icon"><i class="material-icons">restaurant_menu</i><span>READY TIME</span></div>
-      <div>30 minutes</div>
+      <div>{{recipe?.readyTime}} minutes</div>
     </div>
   </div>
   <div class="recipe-r-3">
     <h4>Ingredients</h4>
     <div class="recipe-ingredients">
-      <div class="ingredient">
-        <fa-icon [icon]="faTags" [flip]="'both'" class="mr-3"></fa-icon>
-        <span class="amount">20</span>
-        <span class="unit">lb</span>
-        <span class="ingredient-name">Lorem ipsum dolor sit amet, consectetur adipisicing</span>
-        <fa-icon [icon]="faQuestionCircle" class="ml-1" [size]="'lg'"></fa-icon>
-      </div>
-      <div  class="ingredient">
-        <fa-icon [icon]="faTags" [flip]="'both'" class="mr-3"></fa-icon>
-        <span class="amount">20</span>
-        <span class="unit">lb</span>
-        <span class="ingredient-name">Lorem ipsum dolor sit amet, consectetur adipisicing</span>
-        <fa-icon [icon]="faQuestionCircle" class="ml-1" [size]="'lg'"></fa-icon>
-      </div>
-      <div  class="ingredient">
-        <fa-icon [icon]="faTags" [flip]="'both'" class="mr-3"></fa-icon>
-        <span class="amount">20</span>
-        <span class="unit">lb</span>
-        <span class="ingredient-name">Lorem ipsum dolor sit amet, consectetur adipisicing</span>
-        <fa-icon [icon]="faQuestionCircle" class="ml-1" [size]="'lg'"></fa-icon>
-      </div>
-      <div  class="ingredient">
-        <fa-icon [icon]="faTags" [flip]="'both'" class="mr-3"></fa-icon>
-        <span class="amount">20</span>
-        <span class="unit">lb</span>
-        <span class="ingredient-name">Lorem ipsum dolor sit amet, consectetur adipisicing</span>
-        <fa-icon [icon]="faQuestionCircle" class="ml-1" [size]="'lg'"></fa-icon>
-      </div>
+      <ng-container *ngFor="let ingredient of recipe?.ingredients">
+        <div class="ingredient" placement="top" triggers=""
+             [popover]="ingredient?.tip" [popoverTitle]="'Tips'" [isOpen]="ingredientToolTip">
+          <fa-icon [icon]="faTags" [flip]="'both'" class="mr-3"></fa-icon>
+          <span class="amount">{{ingredient?.amount}}</span>
+          <span class="unit">{{ingredient?.unit}}</span>
+          <span class="ingredient-name">{{ingredient?.name}}</span>
+          <fa-icon *ngIf="ingredient?.tip" [icon]="faQuestionCircle" class="ml-1" [size]="'lg'" (click)="ingredientToolTip = !ingredientToolTip"></fa-icon>
+        </div>
+      </ng-container>
     </div>
   </div>
   <div class="recipe-r-4">
     <h4>Direction</h4>
     <div class="recipe-direction">
-      <div class="step">
-        <div class="step-number">1</div>
-        <div class="step-description">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-          Minus nostrum porro saepe? Aliquid, aperiam commodi dolor doloremque esse excepturi iste nisi nulla,
-          numquam obcaecati pariatur porro possimus totam veniam, voluptates?
+      <ng-container *ngFor="let step of recipe?.steps">
+        <div class="step" placement="top" triggers=""
+             [popover]="step?.tip" [popoverTitle]="'Tips'" [isOpen]="stepTooltip">
+          <div class="step-number">{{step?.index}}</div>
+          <div class="step-description">{{step?.direction}}</div>
+          <fa-icon *ngIf="step?.tip" [icon]="faExclamationCircle" class="mx-3" [size]="'lg'" (click)="stepTooltip = !stepTooltip"></fa-icon>
         </div>
-        <fa-icon [icon]="faExclamationCircle" class="mx-3" [size]="'lg'"></fa-icon>
-      </div>
-      <div class="step">
-        <div class="step-number">2</div>
-        <div class="step-description">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-          Minus nostrum porro saepe? Aliquid, aperiam commodi dolor doloremque esse excepturi iste nisi nulla,
-          numquam obcaecati pariatur porro possimus totam veniam, voluptates?
-        </div>
-        <fa-icon [icon]="faExclamationCircle" class="mx-3" [size]="'lg'"></fa-icon>
-      </div>
-      <div class="step">
-        <div class="step-number">3</div>
-        <div class="step-description">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-          Minus nostrum porro saepe? Aliquid, aperiam commodi dolor doloremque esse excepturi iste nisi nulla,
-          numquam obcaecati pariatur porro possimus totam veniam, voluptates?
-        </div>
-        <fa-icon [icon]="faExclamationCircle" class="mx-3" [size]="'lg'"></fa-icon>
-      </div>
-      <div class="step">
-        <div class="step-number">4</div>
-        <div class="step-description" #pop="bs-popover" [popover]="tip" [popoverTitle]="'Tips'" placement="top" triggers="focus" >
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-          Minus nostrum porro saepe? Aliquid, aperiam commodi dolor doloremque esse excepturi iste nisi nulla,
-          numquam obcaecati pariatur porro possimus totam veniam, voluptates?
-        </div>
-        <fa-icon [icon]="faExclamationCircle" class="mx-3" [size]="'lg'" (click)="pop.toggle()"></fa-icon>
-      </div>
+      </ng-container>
     </div>
   </div>
   <br>

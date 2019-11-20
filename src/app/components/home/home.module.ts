@@ -19,6 +19,7 @@ import {
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { QuillModule } from 'ngx-quill';
 import { PopoverModule } from 'ngx-bootstrap/popover';
+import { InteractionIconComponent } from './interaction-icon/interaction-icon.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
     SearchRecipeComponent,
     CreateRecipeComponent,
     LoginModalComponent,
-    RecipeComponent
+    RecipeComponent,
+    InteractionIconComponent
   ],
   imports: [
     CommonModule,
