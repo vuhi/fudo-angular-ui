@@ -5,14 +5,13 @@ import { catchError, filter, find, map } from 'rxjs/operators';
 import * as faker from 'faker';
 
 import { Ingredient, Recipe, Step, Tag, TagColor, User } from '../../models';
+import { COLORS } from '../../models/tag.model';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipeService {
-
-  colors = ['Blue', 'Orange', 'Red', 'Green', 'Black', 'Gray', 'Yellow'];
 
   constructor() { }
 
@@ -38,8 +37,10 @@ export class RecipeService {
       map((res: Recipe[]) => {
         const recipe = res.find(recipes => recipes.id === recipeId);
         if (!recipe) { throw new Error('Cannot find the current recipe!'); }
+        recipe.steps.forEach(step => step.isOpen = false);
+        recipe.ingredients.forEach(step => step.isOpen = false);
         return recipe;
-      })
+      }),
     );
   }
 
@@ -89,7 +90,7 @@ export class RecipeService {
   generateTag(length: number): Tag[] {
     const tags: Tag[] = [];
     for (let i = 0; i < length; i++) {
-      tags.push({ name: faker.lorem.word(), color: TagColor[this.colors[faker.random.number({ min: 0, max: 6 })]] });
+      tags.push({ name: faker.lorem.word(), color: TagColor[COLORS[faker.random.number({ min: 0, max: 6 })]] });
     }
     return tags;
   }

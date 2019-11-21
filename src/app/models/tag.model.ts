@@ -12,3 +12,5 @@ export enum TagColor {
   Gray = '#949599',
   Yellow = '#d9d566'
 }
+
+export const COLORS = ['Blue', 'Orange', 'Red', 'Green', 'Black', 'Gray', 'Yellow'];

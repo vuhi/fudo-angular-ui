@@ -44,12 +44,12 @@
     <div class="recipe-ingredients">
       <ng-container *ngFor="let ingredient of recipe?.ingredients">
         <div class="ingredient" placement="top" triggers=""
-             [popover]="ingredient?.tip" [popoverTitle]="'Tips'" [isOpen]="ingredientToolTip">
+             [popover]="ingredient?.tip" [popoverTitle]="'Tips'" [isOpen]="ingredient?.isOpen">
           <fa-icon [icon]="faTags" [flip]="'both'" class="mr-3"></fa-icon>
           <span class="amount">{{ingredient?.amount}}</span>
           <span class="unit">{{ingredient?.unit}}</span>
           <span class="ingredient-name">{{ingredient?.name}}</span>
-          <fa-icon *ngIf="ingredient?.tip" [icon]="faQuestionCircle" class="ml-1" [size]="'lg'" (click)="ingredientToolTip = !ingredientToolTip"></fa-icon>
+          <fa-icon *ngIf="ingredient?.tip" [icon]="faQuestionCircle" class="ml-1" [size]="'lg'" (click)="ingredient.isOpen = !ingredient.isOpen"></fa-icon>
         </div>
       </ng-container>
     </div>
@@ -59,10 +59,10 @@
     <div class="recipe-direction">
       <ng-container *ngFor="let step of recipe?.steps">
         <div class="step" placement="top" triggers=""
-             [popover]="step?.tip" [popoverTitle]="'Tips'" [isOpen]="stepTooltip">
+             [popover]="step?.tip" [popoverTitle]="'Tips'" [isOpen]="step?.isOpen">
           <div class="step-number">{{step?.index}}</div>
           <div class="step-description">{{step?.direction}}</div>
-          <fa-icon *ngIf="step?.tip" [icon]="faExclamationCircle" class="mx-3" [size]="'lg'" (click)="stepTooltip = !stepTooltip"></fa-icon>
+          <fa-icon *ngIf="step?.tip" [icon]="faExclamationCircle" class="mx-3" [size]="'lg'" (click)="step.isOpen = !step.isOpen"></fa-icon>
         </div>
       </ng-container>
     </div>

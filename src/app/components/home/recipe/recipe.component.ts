@@ -23,8 +23,6 @@ export class RecipeComponent implements OnInit {
   recipe: Recipe;
   userPlaceHolder = '../../../../assets/user_img_place_holder.png';
   userRecipeHolder = '../../../../assets/recipe_img_place_holder.png';
-  ingredientToolTip = false;
-  stepTooltip = false;
   constructor(
     private route: ActivatedRoute,
     private router: Router,

@@ -1,62 +1,139 @@
 <div class="create-recipe-form mt-4">
   <mat-card class="">
     <mat-card-header>
-      <mat-card-title>
-        <fa-icon [icon]="faCookieBite" [size]="'lg'" [spin]="true"></fa-icon><span class="title">Recipe</span>
+      <mat-card-title class="title">
+        <fa-layers [fixedWidth]="true">
+          <fa-icon [icon]="faBookmark" class="file"></fa-icon>
+          <fa-icon [icon]="faUtensils" class="folk" [transform]="{ x: 3, y: -2 }"></fa-icon>
+        </fa-layers>
+        <span class="title-text">Recipe</span>
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form>
+      <form role="form" [formGroup]="recipeForm">
+        <!-- NAME + IMAGE -->
         <div class="form-row">
-          <div class="form-group col-md-4">
-            <mat-form-field appearance="fill" class="input-fill-color">
+          <!-- RECIPE NAME -->
+          <div class="form-group col-md-6">
+            <mat-form-field appearance="outline" class="input-fill-color">
               <mat-label>Recipe Name</mat-label>
-              <input matInput>
-              <mat-hint>Ex: Browne Cookie</mat-hint>
+              <input matInput required formControlName="name" maxlength="120">
+              <button mat-button matSuffix mat-icon-button aria-label="Clear"
+                *ngIf="getEl('name').value?.length" (click)="getEl('name').setValue(null)">
+                <mat-icon>close</mat-icon>
+              </button>
+              <mat-hint align="start">Ex: Browne Cookie</mat-hint>
+              <mat-hint align="end">{{getEl('name').value?.length}} / 120</mat-hint>
+              <mat-error *ngIf="isValid('name')">
+                <span *ngIf="getEl('name', 'required')">This field is required</span>
+                <span *ngIf="getEl('name', 'maxlength'); let err">The maximum length is {{err['requiredLength']}}</span>
+              </mat-error>
             </mat-form-field>
           </div>
-          <div class="form-group col-md-8 d-flex flex-row align-items-end">
-            <button class="btn btn-outline-primary h-75 ml-5 mb-3"><fa-icon [icon]="faCloudUploadAlt" [size]="'2x'"></fa-icon></button>
-            <span class="font-weight-light h5 mx-5 mb-3">Or</span>
-            <mat-form-field appearance="fill" class="w-50">
+          <!-- RECIPE IMAGE -->
+          <div class="form-group col-md-6 d-flex flex-row align-items-end">
+            <mat-form-field appearance="outline">
               <mat-label>Images Url</mat-label>
-              <input matInput>
-              <mat-hint>Ex: https://picsum.photo/400/400</mat-hint>
+              <input matInput required maxlength="250" formControlName="image">
+              <button mat-button matSuffix mat-icon-button aria-label="Clear"
+                *ngIf="getEl('image').value?.length" (click)="getEl('image').setValue(null)">
+                <mat-icon>close</mat-icon>
+              </button>
+              <mat-hint align="start">Ex: https://picsum.photo/400/400</mat-hint>
+              <mat-hint align="end">{{getEl('name').value?.length}} / 250</mat-hint>
+              <mat-error *ngIf="isValid('image')">
+                <span *ngIf="getEl('image', 'required')">This field is required</span>
+                <span *ngIf="getEl('image', 'pattern')">This field should be a valid url</span>
+                <span *ngIf="getEl('image', 'maxlength'); let err">The maximum length is {{err['requiredLength']}}</span>
+              </mat-error>
             </mat-form-field>
           </div>
         </div>
+        <!-- DESCRIPTION -->
         <div class="form-row">
           <div class="form-group col-md-12">
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="outline">
               <mat-label>Description</mat-label>
-              <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"></textarea>
-              <mat-hint>Ex: To make a delicious snack</mat-hint>
+              <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="3" cdkAutosizeMaxRows="8"
+                maxlength="500" required formControlName="description" ></textarea>
+              <button mat-button matSuffix mat-icon-button aria-label="Clear"
+                *ngIf="getEl('description').value?.length" (click)="getEl('description').setValue(null)">
+                <mat-icon>close</mat-icon>
+              </button>
+              <mat-hint align="start">Ex: To make a delicious snack</mat-hint>
+              <mat-hint align="end">{{getEl('description').value?.length}} / 500</mat-hint>
+              <mat-error *ngIf="isValid('description')">
+                <span *ngIf="getEl('description', 'required')">This field is required</span>
+                <span *ngIf="getEl('description', 'maxlength'); let err">The maximum length is {{err['requiredLength']}}</span>
+              </mat-error>
             </mat-form-field>
           </div>
         </div>
+        <!-- TAGS -->
         <div class="form-row">
           <div class="form-group col-md-12">
-            <mat-form-field appearance="fill">
-              <mat-chip-list #chipList aria-label="Tags selection">
-                <mat-chip *ngFor="let tag of tags" [color]="tag?.color" selected [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
+            <mat-form-field appearance="outline">
+              <mat-chip-list  #recipeTags formControlName="tags">
+                <mat-chip *ngFor="let tag of tagList" [ngStyle]="{'background': tag?.color, 'color': 'white'}"
+                  [removable]="removable" (removed)="removeTag(tag)">
                   {{tag.name}}
-                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                  <mat-icon matChipRemove class="text-white" *ngIf="removable">cancel</mat-icon>
                 </mat-chip>
-                <input placeholder="Press enter or type comma to add tags..."
-                   [matChipInputFor]="chipList"
-                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                   [matChipInputAddOnBlur]="addOnBlur"
-                   (matChipInputTokenEnd)="add($event)">
+                <input *ngIf="!invisible" maxlength="15" placeholder="Ex: cookie, awesome ..."
+                  [matChipInputFor]="recipeTags" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  (matChipInputTokenEnd)="addTag($event)">
               </mat-chip-list>
+              <mat-hint align="start">Press "enter" or "comma" keyboard to add tag</mat-hint>
+              <mat-hint align="end">{{tagList.length}} / {{LIMITED_TAG}}</mat-hint>
+              <mat-error *ngIf="isValid('tags') && getEl('name', 'required')">
+                This field is required
+              </mat-error>
             </mat-form-field>
           </div>
         </div>
-        <quill-editor></quill-editor>
+        <!-- PREP, COOK, READY TIMES -->
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>Prepare Time</mat-label>
+              <input type="number" matInput min="0" max="999999999" formControlName="prepTime" required (input)="updateReadyTime()">
+              <span matSuffix>Minute{{getEl('prepTime').value > 1 ? 's' : ''}}</span>
+              <mat-hint align="start">Ex: 10 minutes</mat-hint>
+              <mat-error *ngIf="isValid('prepTime')">
+                <span *ngIf="getEl('prepTime', 'required')">This field is required</span>
+                <span *ngIf="getEl('prepTime', 'max'); let err">The maximum value is {{err['max']}} minutes</span>
+                <span *ngIf="getEl('prepTime', 'min'); let err">The minimum value is {{err['min']}} minute</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>Cook Time</mat-label>
+              <input type="number" matInput min="0" max="999999999" formControlName="cookTime" required (input)="updateReadyTime()">
+              <span matSuffix>Minute{{getEl('cookTime').value > 1 ? 's' : ''}}</span>
+              <mat-hint align="start">Ex: 10 minutes</mat-hint>
+              <mat-error *ngIf="isValid('cookTime')">
+                <span *ngIf="getEl('cookTime', 'required')">This field is required</span>
+                <span *ngIf="getEl('cookTime', 'max'); let err">The maximum value is {{err['max']}} minutes</span>
+                <span *ngIf="getEl('cookTime', 'min'); let err">The minimum value is {{err['min']}} minute</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <h1 class="col-auto mt-2">=</h1>
+          <div class="form-group col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>Ready In</mat-label>
+              <input matInput formControlName="readyTime">
+              <span matSuffix>Minute{{getEl('readyTime').value > 1 ? 's' : ''}}</span>
+            </mat-form-field>
+          </div>
+        </div>
       </form>
     </mat-card-content>
-    <div class="btn-group w-75 ml-auto">
-      <button class="btn btn-success text-white font-weight-bold">CREATE</button>
-      <button class="btn btn-warning font-weight-bold mx-2">CANCEL</button>
+    <div class="btn-group w-50 ml-auto">
+      <button class="btn bg-success text-white font-weight-bold" mat-raised-button
+        [disabled]="recipeForm.invalid || !recipeForm.touched" (click)="saveRecipe()">CREATE</button>
+      <button class="btn bg-warning font-weight-bold mx-2" mat-raised-button (click)="cancel()">CANCEL</button>
     </div>
   </mat-card>
 </div>

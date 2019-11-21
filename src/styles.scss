@@ -17,6 +17,14 @@ $fudo-angular-ui-accent: mat-palette($mat-pink, A200, A100, A400);
 // The warn palette is optional (defaults to red).
 $fudo-angular-ui-warn: mat-palette($mat-red);
 
+$fudo-angular-ui-blue: #3884ff;
+$fudo-angular-ui-orange: #ff9447;
+$fudo-angular-ui-red: #ff4747;
+$fudo-angular-ui-green: #42ed70;
+$fudo-angular-ui-black: #000000;
+$fudo-angular-ui-gray: #949599;
+$fudo-angular-ui-yellow: #d9d566;
+
 // Create the theme object (a Sass map containing all of the palettes).
 $fudo-angular-ui-theme: mat-light-theme($fudo-angular-ui-primary, $fudo-angular-ui-accent, $fudo-angular-ui-warn);
 

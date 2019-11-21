@@ -26,10 +26,12 @@ export interface Ingredient {
   unit: string;
   amount: number;
   tip?: string;
+  isOpen?: boolean;
 }
 
 export interface Step {
   index: number;
   direction: string;
   tip?: string;
+  isOpen?: boolean;
 }
