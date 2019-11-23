@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { MatChipInputEvent } from '@angular/material';
+import { MatChipInputEvent, MatDialog } from '@angular/material';
 
-import { faBookmark, faUtensils } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark, faHandPointUp, faUtensils } from '@fortawesome/free-solid-svg-icons';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { LIMITED_TAG, URL_PATTERN } from '../../../utils/app-constant';
-import { Recipe, Tag, TagColor } from '../../../models';
+import { Direction, Ingredient, ModalData, ModalMode, Recipe, Tag, TagColor } from '../../../models';
 import { COLORS } from '../../../models/tag.model';
 import * as faker from 'faker';
+
+import { IngredientModalComponent } from './ingredient-modal/ingredient-modal.component';
+import { DirectionModalComponent } from './direction-modal/direction-modal.component';
 
 @Component({
   selector: 'app-create-recipe',
@@ -18,10 +21,18 @@ import * as faker from 'faker';
 export class CreateRecipeComponent implements OnInit {
 
   LIMITED_TAG = LIMITED_TAG;
+  INGREDIENT_MODAL = 'ingredients';
+  DIRECTION_MODAL = 'directions';
+  EDIT = ModalMode.Edit;
+  CREATE = ModalMode.Create;
+
   faUtensils = faUtensils;
   faBookmark = faBookmark;
+  faHandPointUp = faHandPointUp;
 
   tagList: Tag[] = [];
+  ingredientList: Ingredient[] = [];
+  directionList: Direction[] = [];
   invisible = false;
   removable = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
@@ -29,7 +40,10 @@ export class CreateRecipeComponent implements OnInit {
   recipeForm: FormGroup;
 
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit() {
     this.initForm();
@@ -37,7 +51,7 @@ export class CreateRecipeComponent implements OnInit {
   }
 
   getEl = (formElName: string, errorName = null) => errorName ? this.recipeForm.get(formElName).errors[errorName] : this.recipeForm.get(formElName);
-  isValid = (formElName: string) => this.getEl(formElName).invalid && (this.getEl(formElName).dirty || this.getEl(formElName).touched);
+  isInvalid = (formElName: string) => this.getEl(formElName).invalid && (this.getEl(formElName).dirty || this.getEl(formElName).touched);
 
   initForm(recipe: Recipe = null) {
     this.recipeForm = this.fb.group({
@@ -48,7 +62,9 @@ export class CreateRecipeComponent implements OnInit {
       tags: this.fb.control(this.tagList, [Validators.required]),
       prepTime: this.fb.control('', [Validators.required, Validators.max(999999999), Validators.min(0)]),
       cookTime: this.fb.control('', [Validators.required, Validators.max(999999999), Validators.min(0)]),
-      readyTime: this.fb.control({value: 0, disabled: true})
+      readyTime: this.fb.control({value: 0, disabled: true}),
+      ingredients: this.fb.control(this.ingredientList, [Validators.required]),
+      directions: this.fb.control(this.directionList, [Validators.required])
     });
   }
 
@@ -84,4 +100,39 @@ export class CreateRecipeComponent implements OnInit {
   cancel() {
     console.log(this.recipeForm.getRawValue());
   }
+
+  showModal(name: string, index: number, mode: ModalMode) {
+    const modal = this.dialog.open(
+      name === this.INGREDIENT_MODAL ? IngredientModalComponent : DirectionModalComponent, {
+      width: '60%',
+      minWidth: '500px',
+      data: { index, name, mode }
+    });
+
+    modal.afterClosed().subscribe((result: ModalData<any>| undefined) => {
+      console.log('The dialog was closed', result);
+      if (result) {
+        result.name === this.INGREDIENT_MODAL ?
+          this.handleIngredienData(result.value, result.mode) :  this.handleDirectionData(result.value, result.mode);
+      }
+    });
+  }
+
+  handleIngredienData(ingredient: Ingredient, mode: ModalMode) {
+    switch (mode) {
+      case ModalMode.Create: {
+        this.ingredientList.push(ingredient);
+        break;
+      }
+      case ModalMode.Edit: {
+        const index = this.ingredientList.findIndex(x => x.index === ingredient.index);
+        if (index) { this.ingredientList[index] = ingredient; } else { throw new Error('Cannot find ingredient index'); }
+        break;
+      }
+      default: return;
+    }
+    this.getEl(this.INGREDIENT_MODAL).setValue(this.ingredientList);
+  }
+
+  handleDirectionData(direction: Direction, mode: ModalMode) {}
 }

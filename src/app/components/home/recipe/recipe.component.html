@@ -57,12 +57,12 @@
   <div class="recipe-r-4">
     <h4>Direction</h4>
     <div class="recipe-direction">
-      <ng-container *ngFor="let step of recipe?.steps">
-        <div class="step" placement="top" triggers=""
-             [popover]="step?.tip" [popoverTitle]="'Tips'" [isOpen]="step?.isOpen">
-          <div class="step-number">{{step?.index}}</div>
-          <div class="step-description">{{step?.direction}}</div>
-          <fa-icon *ngIf="step?.tip" [icon]="faExclamationCircle" class="mx-3" [size]="'lg'" (click)="step.isOpen = !step.isOpen"></fa-icon>
+      <ng-container *ngFor="let directions of recipe?.directions">
+        <div class="direction" placement="top" triggers=""
+             [popover]="directions?.tip" [popoverTitle]="'Tips'" [isOpen]="directions?.isOpen">
+          <div class="directions-number">{{directions?.index}}</div>
+          <div class="directions-description">{{directions?.direction}}</div>
+          <fa-icon *ngIf="directions?.tip" [icon]="faExclamationCircle" class="mx-3" [size]="'lg'" (click)="directions.isOpen = !directions.isOpen"></fa-icon>
         </div>
       </ng-container>
     </div>

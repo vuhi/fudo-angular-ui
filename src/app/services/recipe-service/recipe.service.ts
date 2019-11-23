@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, filter, find, map } from 'rxjs/operators';
 import * as faker from 'faker';
 
-import { Ingredient, Recipe, Step, Tag, TagColor, User } from '../../models';
+import { Ingredient, Recipe, Direction, Tag, TagColor, User } from '../../models';
 import { COLORS } from '../../models/tag.model';
 
 
@@ -37,8 +37,8 @@ export class RecipeService {
       map((res: Recipe[]) => {
         const recipe = res.find(recipes => recipes.id === recipeId);
         if (!recipe) { throw new Error('Cannot find the current recipe!'); }
-        recipe.steps.forEach(step => step.isOpen = false);
-        recipe.ingredients.forEach(step => step.isOpen = false);
+        recipe.directions.forEach(direction => direction.isOpen = false);
+        recipe.ingredients.forEach(direction => direction.isOpen = false);
         return recipe;
       }),
     );
@@ -67,7 +67,7 @@ export class RecipeService {
       numberTried: faker.random.number({ min: 1, max: 500 }),
 
       ingredients: this.generateIngredien(faker.random.number({ min: 3, max: 8 })),
-      steps: this.generateStep(faker.random.number({ min: 3, max: 8 })),
+      directions: this.generateDirection(faker.random.number({ min: 3, max: 8 })),
 
       userId: user.id,
       user,
@@ -99,6 +99,7 @@ export class RecipeService {
     const ingredients: Ingredient[] = [];
     for (let i = 0; i < length; i++) {
       ingredients.push({
+        index: i,
         name: faker.lorem.words(faker.random.number({min: 1, max: 4})),
         unit: faker.lorem.word(),
         amount: +faker.finance.amount(5, 50, 2),
@@ -108,15 +109,15 @@ export class RecipeService {
     return ingredients;
   }
 
-  generateStep(length: number): Step[] {
-    const steps: Step[] = [];
+  generateDirection(length: number): Direction[] {
+    const directions: Direction[] = [];
     for (let i = 0; i < length; i++) {
-      steps.push({
+      directions.push({
         index: i + 1,
         direction: faker.lorem.sentences(faker.random.number({min: 1, max: 3})),
         tip: faker.lorem.words(faker.random.number({min: 0, max: 8}))
       });
     }
-    return steps;
+    return directions;
   }
 }

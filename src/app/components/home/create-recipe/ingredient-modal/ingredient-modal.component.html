@@ -1,0 +1,83 @@
+<h5>{{title}}</h5>
+<form class="ingredient-form" role="form" [formGroup]="ingredientForm">
+  <!-- INGREDIENT NAME -->
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <mat-form-field appearance="outline" class="input-fill-color">
+        <mat-label>Ingredient Name</mat-label>
+        <input matInput required formControlName="name" [maxlength]="NAME_MAX_LEN.toString()">
+        <button mat-button matSuffix mat-icon-button aria-label="Clear"
+          *ngIf="getEl('name').value?.length" (click)="getEl('name').setValue(null)">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-hint align="start">Ex: onion, oil, sugar... </mat-hint>
+        <mat-hint align="end">{{getEl('name').value?.length}} / {{NAME_MAX_LEN}}</mat-hint>
+        <mat-error *ngIf="isInvalid('name')">
+          <span *ngIf="getEl('name', 'required')">This field is required</span>
+          <span *ngIf="getEl('name', 'maxlength'); let err">The maximum length is {{err['requiredLength']}}</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <!-- INGREDIENT UNIT + AMOUNT -->
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <mat-form-field appearance="outline" class="input-fill-color">
+        <mat-label>Amount</mat-label>
+        <input matInput required formControlName="amount" [maxlength]="AMOUNT_MAX_LEN.toString()">
+        <button mat-button matSuffix mat-icon-button aria-label="Clear"
+          *ngIf="getEl('amount').value?.length" (click)="getEl('amount').setValue(null)">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-hint align="start">Ex: 1/2</mat-hint>
+        <mat-hint align="end">{{getEl('amount').value?.length}} / {{AMOUNT_MAX_LEN}}</mat-hint>
+        <mat-error *ngIf="isInvalid('amount')">
+          <span *ngIf="getEl('amount', 'required')">This field is required</span>
+          <span *ngIf="getEl('amount', 'maxlength'); let err">The maximum length is {{err['requiredLength']}}</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form-group col-md-6">
+      <mat-form-field appearance="outline" class="input-fill-color">
+        <mat-label>Unit</mat-label>
+        <input matInput required formControlName="unit" [maxlength]="UNIT_MAX_LEN.toString()">
+        <button mat-button matSuffix mat-icon-button aria-label="Clear"
+          *ngIf="getEl('unit').value?.length" (click)="getEl('unit').setValue(null)">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-hint align="start">Ex: lb., pack, drop ... </mat-hint>
+        <mat-hint align="end">{{getEl('unit').value?.length}} / {{UNIT_MAX_LEN}}</mat-hint>
+        <mat-error *ngIf="isInvalid('unit')">
+          <span *ngIf="getEl('unit', 'required')">This field is required</span>
+          <span *ngIf="getEl('unit', 'maxlength'); let err">The maximum length is {{err['requiredLength']}}</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <!-- INGREDIENT TIPS -->
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <mat-form-field appearance="outline">
+        <mat-label>Tips (optional)</mat-label>
+        <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="4" cdkAutosizeMaxRows="6"
+          [maxlength]="TIP_MAX_LEN.toString()" formControlName="tip" ></textarea>
+        <button mat-button matSuffix mat-icon-button aria-label="Clear"
+          *ngIf="getEl('tip').value?.length" (click)="getEl('tip').setValue(null)">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-hint align="start">Ex: Squeeze potatoes for firmness...</mat-hint>
+        <mat-hint align="end">{{getEl('tip').value?.length}} / {{TIP_MAX_LEN}}</mat-hint>
+        <mat-error *ngIf="isInvalid('tip') && getEl('tip', 'maxlength'); let err">
+          The maximum length is {{err['requiredLength']}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+</form>
+<div class="btn-group w-50 ml-auto">
+  <button class="btn bg-success text-white font-weight-bold" mat-button
+    [disabled]="ingredientForm.invalid || !ingredientForm.touched" (click)="saveIngredient()">OK&nbsp;!</button>
+  <button class="btn bg-warning font-weight-bold mx-2" mat-button (click)="cancel()">CANCEL</button>
+</div>
+
+

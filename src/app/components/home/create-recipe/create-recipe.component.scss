@@ -1,4 +1,9 @@
 .create-recipe-form {
+  .mat-card {
+    border: 1px solid rgba(220, 220, 220, 0.5);
+    box-shadow: 0.1rem 0.1rem 1.5rem 0.1rem rgba(0,0,0,0.1) !important;
+  }
+
   .title {
     .title-text {
       font-size: 1.5rem;
@@ -17,12 +22,64 @@
     }
   }
 
+  .border-wrapper-ingredient, .border-wrapper-direction {
+    border-radius: .5rem;
+    padding: 2rem 1rem 1rem 1rem;
+    margin-top: 1rem;
+  }
+
+  .border-wrapper-ingredient {
+    border: 1px solid rgba(255, 143, 88, 0.5);
+  }
+
+  .border-wrapper-direction {
+    border: 1px solid rgba(36, 170, 134, 0.5);
+  }
+
+  .add-ingredient-btn, .add-direction-btn {
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    min-width: 160px;
+    color: white;
+    font-weight: bolder;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: ease-in-out .3s;
+    box-shadow:
+      0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+      0px 2px 2px 0px rgba(0, 0, 0, 0.15),
+      3px 3px 10px 0px rgba(0, 0, 0, 0.2) !important;
+
+    &:hover{
+      transform: scale(1.05);
+      box-shadow:
+        0px 3px 8px -2px rgba(0, 0, 0, 0.15),
+        0px 2px 2px 0px rgba(0, 0, 0, 0.15),
+        3px 3px 10px 2px rgba(0, 0, 0, 0.2) !important;
+    }
+  }
+
+  .add-ingredient-btn {
+    background-color: #ff8f58;
+  }
+
+  .add-direction-btn {
+    background-color: #24aa86;
+  }
+
   mat-form-field {
     width: 100%;
     font-size: 1rem;
     mat-hint {
       font-size: 0.8rem;
     }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .equal-sign {
+    display: none;
   }
 }
 

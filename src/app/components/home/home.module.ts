@@ -20,6 +20,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { QuillModule } from 'ngx-quill';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { InteractionIconComponent } from './interaction-icon/interaction-icon.component';
+import { IngredientModalComponent } from './create-recipe/ingredient-modal/ingredient-modal.component';
+import { DirectionModalComponent } from './create-recipe/direction-modal/direction-modal.component';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { InteractionIconComponent } from './interaction-icon/interaction-icon.co
     CreateRecipeComponent,
     LoginModalComponent,
     RecipeComponent,
-    InteractionIconComponent
+    InteractionIconComponent,
+    IngredientModalComponent,
+    DirectionModalComponent
   ],
   imports: [
     CommonModule,
@@ -55,6 +59,8 @@ import { InteractionIconComponent } from './interaction-icon/interaction-icon.co
   ],
   entryComponents: [
     LoginModalComponent,
+    IngredientModalComponent,
+    DirectionModalComponent
   ],
 })
 export class HomeModule { }

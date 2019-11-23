@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 
 import { faUtensils, faHamburger, faSearch } from '@fortawesome/free-solid-svg-icons';
-import {LoginModalComponent} from '../login-modal/login-modal.component';
+import { LoginModalComponent } from '../login-modal/login-modal.component';
 
 
 @Component({
@@ -18,7 +18,7 @@ export class NavComponent implements OnInit {
   faSearch = faSearch;
   constructor(
     private router: Router,
-    public dialog: MatDialog
+    private dialog: MatDialog
   ) { }
 
   get isLogging() {

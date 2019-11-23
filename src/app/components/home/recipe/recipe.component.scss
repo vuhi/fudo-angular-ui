@@ -170,14 +170,14 @@
       grid-template-columns: 1fr;
       grid-gap: .5rem;
 
-      .step {
+      .direction {
         display: grid;
         grid-template-columns: auto 1fr auto;
         box-shadow: 0.1rem 0.2rem 0.3rem 0 rgba(0,0,0,0.1);
         border-radius: .4rem;
         border: 1px solid rgba(220, 220, 220, 0.8);
         align-items: center;
-        .step-number {
+        .directions-number {
           display: grid;
           align-items: center;
           height: 100%;
@@ -188,7 +188,7 @@
           text-align: center;
           background-color: #24aa86;
         }
-        .step-description {
+        .directions-description {
           padding: .5rem;
         }
       }

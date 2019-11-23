@@ -17,11 +17,12 @@ export interface Recipe {
   cookTime: number;
   readyTime: number;
   ingredients: Ingredient[];
-  steps: Step[];
+  directions: Direction[];
   isPublic: boolean;
 }
 
 export interface Ingredient {
+  index: number;
   name: string;
   unit: string;
   amount: number;
@@ -29,7 +30,7 @@ export interface Ingredient {
   isOpen?: boolean;
 }
 
-export interface Step {
+export interface Direction {
   index: number;
   direction: string;
   tip?: string;

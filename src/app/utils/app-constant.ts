@@ -6,4 +6,3 @@ export const URL_PATTERN = '^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\
 export const DEFAULT_TAG: Tag = { name: 'Fudo', color: TagColor.Black };
 export const LIMITED_TAG = 10;
 
-
