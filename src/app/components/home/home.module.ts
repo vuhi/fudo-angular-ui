@@ -11,9 +11,9 @@ import { LoginModalComponent } from './login-modal/login-modal.component';
 import { RecipeComponent } from './recipe/recipe.component';
 
 import {
-  MatButtonModule,  MatChipsModule,  MatIconModule,  MatInputModule,
-  MatMenuModule,  MatToolbarModule,  MatFormFieldModule,  MatOptionModule,
-  MatSelectModule, MatCardModule, MatDialogModule
+  MatButtonModule, MatChipsModule, MatIconModule, MatInputModule,
+  MatMenuModule, MatToolbarModule, MatFormFieldModule, MatOptionModule,
+  MatSelectModule, MatCardModule, MatDialogModule, MatExpansionModule, MatSidenavModule
 } from '@angular/material';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -22,6 +22,7 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
 import { InteractionIconComponent } from './interaction-icon/interaction-icon.component';
 import { IngredientModalComponent } from './create-recipe/ingredient-modal/ingredient-modal.component';
 import { DirectionModalComponent } from './create-recipe/direction-modal/direction-modal.component';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { DirectionModalComponent } from './create-recipe/direction-modal/directi
     RecipeComponent,
     InteractionIconComponent,
     IngredientModalComponent,
-    DirectionModalComponent
+    DirectionModalComponent,
+    ConfirmModalComponent
   ],
   imports: [
     CommonModule,
@@ -55,12 +57,15 @@ import { DirectionModalComponent } from './create-recipe/direction-modal/directi
     MatOptionModule,
     MatSelectModule,
     MatCardModule,
-    MatDialogModule
+    MatDialogModule,
+    MatExpansionModule,
+    MatSidenavModule
   ],
   entryComponents: [
     LoginModalComponent,
     IngredientModalComponent,
-    DirectionModalComponent
+    DirectionModalComponent,
+    ConfirmModalComponent
   ],
 })
 export class HomeModule { }

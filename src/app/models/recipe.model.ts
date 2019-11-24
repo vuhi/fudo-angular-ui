@@ -25,7 +25,7 @@ export interface Ingredient {
   index: number;
   name: string;
   unit: string;
-  amount: number;
+  amount: string;
   tip?: string;
   isOpen?: boolean;
 }

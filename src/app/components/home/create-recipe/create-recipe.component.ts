@@ -1,18 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { MatChipInputEvent, MatDialog } from '@angular/material';
 
-import { faBookmark, faHandPointUp, faUtensils } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark, faHandPointUp, faUtensils, faHashtag, faAngleDoubleLeft, faTrashAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { LIMITED_TAG, URL_PATTERN } from '../../../utils/app-constant';
-import { Direction, Ingredient, ModalData, ModalMode, Recipe, Tag, TagColor } from '../../../models';
+import { Direction, Ingredient, ModalData, Mode, Recipe, Tag, TagColor } from '../../../models';
 import { COLORS } from '../../../models/tag.model';
 import * as faker from 'faker';
 
 import { IngredientModalComponent } from './ingredient-modal/ingredient-modal.component';
 import { DirectionModalComponent } from './direction-modal/direction-modal.component';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 
+/* tslint:disable:one-line */
 @Component({
   selector: 'app-create-recipe',
   templateUrl: './create-recipe.component.html',
@@ -20,38 +23,50 @@ import { DirectionModalComponent } from './direction-modal/direction-modal.compo
 })
 export class CreateRecipeComponent implements OnInit {
 
-  LIMITED_TAG = LIMITED_TAG;
-  INGREDIENT_MODAL = 'ingredients';
-  DIRECTION_MODAL = 'directions';
-  EDIT = ModalMode.Edit;
-  CREATE = ModalMode.Create;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  readonly LIMITED_TAG = LIMITED_TAG;
+  readonly INGREDIENT = 'Ingredient';
+  readonly DIRECTION = 'Direction';
+  readonly EDIT = Mode.Edit;
+  readonly CREATE = Mode.Create;
 
-  faUtensils = faUtensils;
-  faBookmark = faBookmark;
-  faHandPointUp = faHandPointUp;
+  readonly faUtensils = faUtensils;
+  readonly faBookmark = faBookmark;
+  readonly faHandPointUp = faHandPointUp;
+  readonly faHashtag = faHashtag;
+  readonly faAngleDoubleLeft = faAngleDoubleLeft;
+  readonly faTrashAlt = faTrashAlt;
+  readonly faPencilAlt = faPencilAlt;
 
   tagList: Tag[] = [];
-  ingredientList: Ingredient[] = [];
+  ingredientList: Ingredient[] = [
+    { index: 1, name: 'ingredient 1', amount: '1/2', unit: 'kg', tip: 'here is some tips' },
+    { index: 2, name: 'ingredient 2', amount: '2/2', unit: 'kg', tip: 'here is some tips' }
+  ];
   directionList: Direction[] = [];
-  invisible = false;
-  removable = true;
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-
   recipeForm: FormGroup;
 
+  invisible = false;
+  removable = true;
 
   constructor(
     private fb: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private render: Renderer2,
+    private el: ElementRef
   ) { }
 
-  ngOnInit() {
-    this.initForm();
-    this.getEl('name').valueChanges.subscribe(res => console.log(res));
-  }
+  ngOnInit() { this.initForm(); }
+
+  get ingredients() { return this.recipeForm.get('ingredients'); }
 
   getEl = (formElName: string, errorName = null) => errorName ? this.recipeForm.get(formElName).errors[errorName] : this.recipeForm.get(formElName);
   isInvalid = (formElName: string) => this.getEl(formElName).invalid && (this.getEl(formElName).dirty || this.getEl(formElName).touched);
+  getType = (obj: Ingredient | Direction) => {
+    if ((obj as Ingredient).unit !== undefined && (obj as Ingredient).amount !== undefined) { return this.INGREDIENT; }
+    if ((obj as Direction).direction !== undefined) { return this.DIRECTION; }
+    throw new Error(`Incorrect type, was not either '${this.INGREDIENT}' or '${this.DIRECTION}'`);
+  }
 
   initForm(recipe: Recipe = null) {
     this.recipeForm = this.fb.group({
@@ -101,38 +116,81 @@ export class CreateRecipeComponent implements OnInit {
     console.log(this.recipeForm.getRawValue());
   }
 
-  showModal(name: string, index: number, mode: ModalMode) {
+  // EDIT + CREATE
+  showModal(name: string, index: number, mode: Mode, ingredient: Ingredient = null) {
     const modal = this.dialog.open(
-      name === this.INGREDIENT_MODAL ? IngredientModalComponent : DirectionModalComponent, {
+      name === this.INGREDIENT ? IngredientModalComponent : DirectionModalComponent, {
       width: '60%',
       minWidth: '500px',
-      data: { index, name, mode }
+      panelClass: 'modalComeIn',
+      autoFocus: false,
+      data: { index, name, mode, value: ingredient }
     });
 
     modal.afterClosed().subscribe((result: ModalData<any>| undefined) => {
-      console.log('The dialog was closed', result);
-      if (result) {
-        result.name === this.INGREDIENT_MODAL ?
-          this.handleIngredienData(result.value, result.mode) :  this.handleDirectionData(result.value, result.mode);
-      }
+      if (result && result.name) { this[`handle${result.name}Data`](result.value, result.mode); }
     });
   }
 
-  handleIngredienData(ingredient: Ingredient, mode: ModalMode) {
+  // DELETE
+  delete(del: Ingredient | Direction) {
+    const type = this.getType(del);
+    const confirmModal = this.dialog.open(ConfirmModalComponent, {
+      panelClass: 'modalComeIn',
+      data: { title: `Delete ${type}?`, msg: 'Are you sure, it will be delete?' }
+    });
+
+    confirmModal.afterClosed().subscribe((result: boolean) => {
+      if (result) { this[`handle${type}Data`](del, Mode.Delete); }
+      return;
+    });
+  }
+
+  flipIcon(icon: FaIconComponent): void {
+    icon.flip = icon.flip === 'horizontal' ? null : 'horizontal';
+    icon.render();
+  }
+
+  private handleIngredientData(ingredient: Ingredient, mode: Mode) {
     switch (mode) {
-      case ModalMode.Create: {
-        this.ingredientList.push(ingredient);
+      case Mode.Create: {
+        if (ingredient) {
+          this.ingredientList.push(ingredient);
+          this.ingredients.setValue(this.ingredientList);
+        } else { throw new Error(`Cannot find ingredient to ${Mode.Create}`); }
         break;
       }
-      case ModalMode.Edit: {
+      case Mode.Edit: {
         const index = this.ingredientList.findIndex(x => x.index === ingredient.index);
-        if (index) { this.ingredientList[index] = ingredient; } else { throw new Error('Cannot find ingredient index'); }
+        if (index >= 0) {
+          this.ingredientList[index] = ingredient;
+          this.ingredients.setValue(this.ingredientList);
+        } else { throw new Error(`Cannot find ingredient index to ${Mode.Edit}`); }
+        break;
+      }
+      case Mode.Delete: {
+        const index = this.ingredientList.findIndex(x => x.index === ingredient.index);
+        if (index >= 0) {
+          this.ingredientList.splice(index, 1);
+          this.reOrderIndex('ingredientList');
+          this.ingredients.setValue(this.ingredientList);
+        } else { throw new Error(`Cannot find ingredient index to ${Mode.Delete}`); }
         break;
       }
       default: return;
     }
-    this.getEl(this.INGREDIENT_MODAL).setValue(this.ingredientList);
+    this.ingredients.setValue(this.ingredientList);
   }
 
-  handleDirectionData(direction: Direction, mode: ModalMode) {}
+  private handleDirectionData(direction: Direction, mode: Mode) {}
+
+  private  reOrderIndex(arrayName: string) {
+    (this[arrayName] as any[]).map((value, i) => {
+      value.index = i + 1;
+    });
+  }
+
+  test(e) {
+    console.log(e);
+  }
 }

@@ -11,11 +11,10 @@ import { Ingredient, ModalData } from '../../../../models';
 })
 export class IngredientModalComponent implements OnInit {
 
-  title = 'INGREDIENT';
-  NAME_MAX_LEN = 250;
-  UNIT_MAX_LEN = 100;
-  AMOUNT_MAX_LEN = 50;
-  TIP_MAX_LEN = 250;
+  readonly NAME_MAX_LEN = 250;
+  readonly UNIT_MAX_LEN = 100;
+  readonly AMOUNT_MAX_LEN = 50;
+  readonly TIP_MAX_LEN = 250;
 
   ingredientForm: FormGroup;
 
@@ -25,16 +24,16 @@ export class IngredientModalComponent implements OnInit {
     private fb: FormBuilder,
   ) { }
 
-  ngOnInit() {
-    this.initForm();
-    console.log(this.data);
-  }
+  ngOnInit() { this.initForm(this.data.value); }
+
+  get title() { return `${this.data.mode} ${this.data.name}`; }
 
   // tslint:disable-next-line:max-line-length
   getEl = (formElName: string, errorName = null) => errorName ? this.ingredientForm.get(formElName).errors[errorName] : this.ingredientForm.get(formElName);
   isInvalid = (formElName: string) => this.getEl(formElName).invalid && (this.getEl(formElName).dirty || this.getEl(formElName).touched);
 
-  private initForm() {
+  private initForm(ingredient: Ingredient = null) {
+    console.log(ingredient);
     this.ingredientForm = this.fb.group({
       index: this.data.index,
       name: this.fb.control('', [Validators.required, Validators.maxLength(this.NAME_MAX_LEN)]),
@@ -42,6 +41,15 @@ export class IngredientModalComponent implements OnInit {
       amount: this.fb.control('', [Validators.required, Validators.maxLength(this.AMOUNT_MAX_LEN)]),
       tip: this.fb.control('', [Validators.maxLength(this.TIP_MAX_LEN)]),
     });
+    if (ingredient) { this.setValue(ingredient); }
+  }
+
+  private setValue(ingredient: Ingredient) {
+    try {
+      Object.getOwnPropertyNames(this.ingredientForm.controls).forEach(
+        (prop: string) => this.ingredientForm.controls[prop].setValue(ingredient[prop])
+      );
+    } catch (e) { throw new Error('Encounter error while setting ingredient form value'); }
   }
 
   saveIngredient() {

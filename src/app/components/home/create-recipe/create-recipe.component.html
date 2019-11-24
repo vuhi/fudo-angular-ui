@@ -132,7 +132,7 @@
         <div class="form-row">
           <div class="form-group col-xl-6" style="position: relative">
             <button type="button" class="add-ingredient-btn" mat-raised-button
-              (click)="showModal(INGREDIENT_MODAL, ingredientList.length + 1, CREATE)">
+              (click)="showModal(INGREDIENT, ingredientList.length + 1, CREATE)">
               <i class="material-icons">assignment</i>&nbsp;Ingredient
             </button>
             <div class="border-wrapper-ingredient">
@@ -142,14 +142,50 @@
                 Please fill in the ingredient...
               </span>
               <!-- INGREDIENT LIST -->
-              <ng-container *ngFor="let ingredient of ingredientList">
-                <p>{{ingredient | json}}</p>
-              </ng-container>
+              <mat-accordion [multi]="false">
+                <div *ngFor="let ingredient of ingredientList" style="position: relative;">
+                  <!-- SIDE BUTTONS -->
+                  <mat-drawer-container class="side-navigation" autosize>
+                    <mat-drawer #drawer mode="side" position="end">
+                      <!-- SIDE CONTENT -->
+                      <div class="action-button-wrapper">
+                        <fa-icon [icon]="faTrashAlt" [size]="'2x'" class="delete-btn"
+                           (click)="delete(ingredient)"></fa-icon>
+                        <fa-icon [icon]="faPencilAlt" [size]="'2x'" class="edit-btn"
+                           (click)="showModal(INGREDIENT, ingredient?.index, EDIT, ingredient)"></fa-icon>
+                      </div>
+                    </mat-drawer>
+                    <!-- TOGGLE -->
+                    <fa-icon #angleDoubleLeftIcon class="mx-2 my-auto" [icon]="faAngleDoubleLeft" [size]="'2x'"
+                       (click)="drawer.toggle(); flipIcon(angleDoubleLeftIcon);"></fa-icon>
+                  </mat-drawer-container>
+                  <!-- INGREDIENT PANEL -->
+                  <mat-expansion-panel class="ingredient-item shadow-border"
+                    [disabled]="!ingredient?.tip" [hideToggle]="true">
+                    <!-- INGREDIENT HEADER -->
+                    <mat-expansion-panel-header [collapsedHeight]="'100%'" [expandedHeight]="'100%'">
+                      <div class="ingredient-body">
+                        <div class="ingredient-icon"><fa-icon [icon]="faHashtag" [size]="'lg'"></fa-icon></div>
+                        <div class="ingredient-content">
+                          <span class="amount">{{ingredient?.amount}}</span>
+                          <span class="unit">{{ingredient.unit}}</span>
+                          <span class="name">{{ingredient.name}}</span>
+                        </div>
+                      </div>
+                    </mat-expansion-panel-header>
+                    <!-- INGREDIENT TIPS -->
+                    <div class="ingredient-tip">
+                      <div></div>
+                      <div class="tip">{{ingredient?.tip}}</div>
+                    </div>
+                  </mat-expansion-panel>
+                </div>
+              </mat-accordion>
             </div>
           </div>
           <div class="form-group col-xl-6" style="position: relative">
             <button type="button" class="add-direction-btn" mat-raised-button
-              (click)="showModal(DIRECTION_MODAL, directionList.length + 1, CREATE)">
+              (click)="showModal(DIRECTION, directionList.length + 1, CREATE)">
               <i class="material-icons">extension</i>&nbsp;Direction
             </button>
             <div class="border-wrapper-direction">

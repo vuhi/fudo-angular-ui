@@ -1,11 +1,12 @@
-export enum ModalMode {
+export enum Mode {
   Edit = 'edit',
-  Create = 'create'
+  Create = 'create',
+  Delete = 'delete'
 }
 
 export interface ModalData<T> {
   name: string;
   index: number;
-  mode: ModalMode;
+  mode: Mode;
   value?: T;
 }

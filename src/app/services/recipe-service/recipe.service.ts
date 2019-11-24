@@ -102,7 +102,7 @@ export class RecipeService {
         index: i,
         name: faker.lorem.words(faker.random.number({min: 1, max: 4})),
         unit: faker.lorem.word(),
-        amount: +faker.finance.amount(5, 50, 2),
+        amount: faker.finance.amount(5, 50, 2),
         tip: faker.lorem.words(faker.random.number({min: 0, max: 8}))
       });
     }
