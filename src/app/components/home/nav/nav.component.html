@@ -1,4 +1,4 @@
-<mat-toolbar class="nav">
+<!-- <mat-toolbar class="nav">
   <div class="container-fluid mt-3">
     <span class="nav-title" [routerLink]="'/'"><fa-icon [icon]="faUtensils"></fa-icon>&nbsp;Fudo</span>
     <p class="text-monospace">Food <fa-icon [icon]="faHamburger"></fa-icon>, for me, has always been an adventure</p>
@@ -7,29 +7,34 @@
       <input matInput placeholder="Tags, Name, Ingredient">
     </mat-form-field>
   </div>
-</mat-toolbar>
+</mat-toolbar> -->
 
-<mat-toolbar class="second-nav mt-1">
+<mat-toolbar class="second-nav">
+
+  <span class="nav-title" [routerLink]="'/'"><fa-icon [icon]="faUtensils"></fa-icon>&nbsp;Fudo</span>
+
+  <mat-form-field class="search-bar">
+    <fa-icon class="search-icon" [icon]="faSearch"></fa-icon>
+    <input matInput placeholder="Tags, Name, Ingredient">
+  </mat-form-field>
+
   <div class="btn-group ml-auto">
-    <button class="btn btn-outline-primary font-weight-bolder text-monospace mx-2" [routerLink]="['/', 'create-recipe']">Create your recipe?</button>
-    <button class="btn btn-outline-success font-weight-bolder text-monospace mx-2" [hidden]="isLogging" (click)="openLoginModal()">Has an account?</button>
-    <div *ngIf="isLogging" class="mx-4">
+    <button class="btn btn-outline-primary font-weight-bolder text-monospace mx-2" [routerLink]="['/', 'create-recipe']">Create Recipe</button>
+    <!-- <button class="btn btn-outline-success font-weight-bolder text-monospace mx-2" [hidden]="isLogging" (click)="openLoginModal()">Has an account?</button> -->
+    <!-- *ngIf="isLogging" -->
+    <div class="mx-4">
       <button mat-button [matMenuTriggerFor]="menu">
         <img class="user-profile-img" src="http://lorempixel.com/400/400" alt="user-profile-img">
-        <span class="font-weight-bolder text-monospace mx-2 h5">John Doe</span>
+        <span class="font-weight-bolder text-monospace mx-2 h5">Kaytlin</span>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-          <mat-icon>dialpad</mat-icon>
-          <span>Redial</span>
+        <button [routerLink]="'/my-recipes'" mat-menu-item>
+          <mat-icon>menu_book</mat-icon>
+          <span>My Recipes</span>
         </button>
         <button mat-menu-item>
-          <mat-icon>voicemail</mat-icon>
-          <span>Check voice mail</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>notifications_off</mat-icon>
-          <span>Disable alerts</span>
+          <mat-icon>settings_applications</mat-icon>
+          <span>Settings</span>
         </button>
         <button mat-menu-item>
           <mat-icon>power_settings_new</mat-icon>
@@ -39,5 +44,3 @@
     </div>
   </div>
 </mat-toolbar>
-
-

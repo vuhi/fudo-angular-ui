@@ -7,6 +7,7 @@ import { HomeComponent } from './home.component';
 import { NavComponent } from './nav/nav.component';
 import { SearchRecipeComponent } from './search-recipe/search-recipe.component';
 import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
+import { MyRecipesComponent } from './my-recipes/my-recipes.component';
 import { LoginModalComponent } from './login-modal/login-modal.component';
 import { RecipeComponent } from './recipe/recipe.component';
 
@@ -30,7 +31,8 @@ import { InteractionIconComponent } from './interaction-icon/interaction-icon.co
     CreateRecipeComponent,
     LoginModalComponent,
     RecipeComponent,
-    InteractionIconComponent
+    InteractionIconComponent,
+    MyRecipesComponent
   ],
   imports: [
     CommonModule,

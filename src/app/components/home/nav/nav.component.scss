@@ -8,16 +8,33 @@
   text-align: center;
   box-shadow: 0.3rem 0.3rem 0.6rem 0 rgba(0,0,0,0.1);
 
+}
+
+.second-nav {
+  background: rgba(255,255,255,.2);
+  // background:
+  //   radial-gradient(circle at 2.03% 90.07%, #ff512f, rgba(255,0,0,0) 100%),
+  //   radial-gradient(circle at 97.97% 10.95%, #f09819, rgba(255,0,0,0) 100%),
+  //   radial-gradient(circle at 50% 50%, #c31c73, #c31c73 100%);
+  box-shadow: 0.3rem 0.3rem 0.6rem 0 rgba(0,0,0,0.1);
+  padding: 40px;
+  // position: absolute;
+  // margin: 0px;
+  // float: left;
+
   .nav-title {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     font-weight: bolder;
     letter-spacing: 3px;
     cursor: pointer;
+    float: left;
   }
 
   .search-bar {
-    width: 60%;
-    min-width: 300px;
+    width: 50%;
+    margin-left: 50px;
+    float: left;
+    min-width: 250px;
 
     .search-icon {
       position: absolute;
@@ -25,22 +42,9 @@
       font-size: 1.5rem;
     }
   }
-}
-
-.second-nav {
-  background: rgba(255,255,255,.2);
-  box-shadow: 0.3rem 0.3rem 0.6rem 0 rgba(0,0,0,0.1);
-
   .user-profile-img {
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
   }
 }
-
-
-
-//:host ::ng-deep .search-bar .mat-form-field-label {
-//  color: whitesmoke !important;
-//}
-
