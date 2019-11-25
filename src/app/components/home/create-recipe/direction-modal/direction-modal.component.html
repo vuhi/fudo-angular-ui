@@ -1,1 +1,49 @@
-<p>direction-modal works!</p>
+<h5 class="title">{{title}}</h5>
+<form class="direction-form" role="form" [formGroup]="directionForm">
+  <!-- DIRECTION DIRECTION -->
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <mat-form-field appearance="outline" class="input-fill-color">
+        <mat-label>Direction</mat-label>
+        <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="5" cdkAutosizeMaxRows="8"
+          [maxlength]="DIRECTION_MAX_LEN.toString()" formControlName="direction" ></textarea>
+        <button mat-button matSuffix mat-icon-button aria-label="Clear"
+          *ngIf="getEl('direction').value?.length" (click)="getEl('direction').setValue(null)">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-hint align="start">Ex: Heat with medium heat ... </mat-hint>
+        <mat-hint align="end">{{getEl('direction').value?.length}} / {{DIRECTION_MAX_LEN}}</mat-hint>
+        <mat-error *ngIf="isInvalid('direction')">
+          <span *ngIf="getEl('direction', 'required')">This field is required</span>
+          <span *ngIf="getEl('direction', 'maxlength'); let err">The maximum length is {{err['requiredLength']}}</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <!-- DIRECTION TIPS -->
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <mat-form-field appearance="outline">
+        <mat-label>Tips (optional)</mat-label>
+        <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="4" cdkAutosizeMaxRows="6"
+          [maxlength]="TIP_MAX_LEN.toString()" formControlName="tip" ></textarea>
+        <button mat-button matSuffix mat-icon-button aria-label="Clear"
+          *ngIf="getEl('tip').value?.length" (click)="getEl('tip').setValue(null)">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-hint align="start">Ex: Squeeze potatoes for firmness...</mat-hint>
+        <mat-hint align="end">{{getEl('tip').value?.length}} / {{TIP_MAX_LEN}}</mat-hint>
+        <mat-error *ngIf="isInvalid('tip') && getEl('tip', 'maxlength'); let err">
+          The maximum length is {{err['requiredLength']}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+</form>
+<div class="btn-group w-50 ml-auto">
+  <button class="btn bg-success text-white font-weight-bold" mat-button
+    [disabled]="directionForm.invalid || !directionForm.touched" (click)="saveDirection()">OK&nbsp;!</button>
+  <button class="btn bg-warning font-weight-bold mx-2" mat-button (click)="cancel()">CANCEL</button>
+</div>
+
+

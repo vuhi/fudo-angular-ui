@@ -10,11 +10,8 @@ import { QuillModule } from 'ngx-quill';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { ToastrModule } from 'ngx-toastr';
 
-
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [ AppComponent ],
   imports: [
     BrowserModule,
     AppRoutingModule,

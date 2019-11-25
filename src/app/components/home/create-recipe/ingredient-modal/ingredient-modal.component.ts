@@ -53,7 +53,6 @@ export class IngredientModalComponent implements OnInit {
   }
 
   saveIngredient() {
-    console.log(this.ingredientForm.value);
     this.data.value = this.ingredientForm.value;
     this.dialogRef.close(this.data);
   }

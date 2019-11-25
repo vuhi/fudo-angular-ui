@@ -1,7 +1,8 @@
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatChipInputEvent, MatDialog } from '@angular/material';
 
-import { faBookmark, faHandPointUp, faUtensils, faHashtag, faAngleDoubleLeft, faTrashAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark, faHandPointUp, faUtensils, faHashtag,
+  faAngleDoubleLeft, faTrashAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -41,9 +42,17 @@ export class CreateRecipeComponent implements OnInit {
   tagList: Tag[] = [];
   ingredientList: Ingredient[] = [
     { index: 1, name: 'ingredient 1', amount: '1/2', unit: 'kg', tip: 'here is some tips' },
-    { index: 2, name: 'ingredient 2', amount: '2/2', unit: 'kg', tip: 'here is some tips' }
+    { index: 2, name: 'ingredient 2', amount: '2/2', unit: 'kg', tip: 'here is some tips' },
+    { index: 3, name: 'ingredient 3', amount: '3/2', unit: 'kg', tip: 'here is some tips' },
+    { index: 4, name: 'ingredient 4', amount: '4/2', unit: 'kg', tip: 'here is some tips' }
   ];
-  directionList: Direction[] = [];
+  directionList: Direction[] = [
+    { index: 1, direction: 'direction direction direction direction direction 1', tip: 'here is some tips' },
+    { index: 2, direction: 'direction direction direction direction direction direction 2', tip: 'here is some tips' },
+    { index: 3, direction: 'direction direction direction direction direction direction 3', tip: 'here is some tips' },
+    { index: 4, direction: 'direction direction direction direction direction direction 4', tip: 'here is some tips' },
+    { index: 5, direction: 'direction direction direction direction direction direction 5 direction direction direction direction direction direction 5', tip: 'here is some tips' }
+  ];
   recipeForm: FormGroup;
 
   invisible = false;
@@ -51,14 +60,13 @@ export class CreateRecipeComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private dialog: MatDialog,
-    private render: Renderer2,
-    private el: ElementRef
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() { this.initForm(); }
 
   get ingredients() { return this.recipeForm.get('ingredients'); }
+  get directions() { return this.recipeForm.get('directions'); }
 
   getEl = (formElName: string, errorName = null) => errorName ? this.recipeForm.get(formElName).errors[errorName] : this.recipeForm.get(formElName);
   isInvalid = (formElName: string) => this.getEl(formElName).invalid && (this.getEl(formElName).dirty || this.getEl(formElName).touched);
@@ -83,18 +91,17 @@ export class CreateRecipeComponent implements OnInit {
     });
   }
 
-  updateReadyTime() {
-    this.getEl('readyTime').setValue(
-      this.getEl('prepTime').value + this.getEl('cookTime').value
-    );
-  }
+  updateReadyTime = () => this.getEl('readyTime').setValue(
+    this.getEl('prepTime').value + this.getEl('cookTime').value
+  );
 
   addTag(event: MatChipInputEvent): void {
     const value = event.value;
+    this.getEl('tags').markAsDirty();
+    this.getEl('tags').markAsTouched();
     if (value && value.trim() && this.tagList.length <= this.LIMITED_TAG && !this.tagList.some(tag => tag.name === value.trim())) {
       this.tagList.push({name: value.trim(), color: TagColor[COLORS[faker.random.number({ min: 0, max: 6 })]]});
       this.getEl('tags').setValue(this.tagList);
-      this.getEl('tags').markAsDirty();
       event.input.value = '';
       this.invisible = this.tagList.length >= LIMITED_TAG;
     }
@@ -104,7 +111,6 @@ export class CreateRecipeComponent implements OnInit {
     const index = this.tagList.indexOf(tag);
     if (index >= 0) { this.tagList.splice(index, 1); }
     this.getEl('tags').setValue(this.tagList);
-    this.getEl('tags').markAsDirty();
     this.invisible = this.tagList.length >= LIMITED_TAG;
   }
 
@@ -117,15 +123,14 @@ export class CreateRecipeComponent implements OnInit {
   }
 
   // EDIT + CREATE
-  showModal(name: string, index: number, mode: Mode, ingredient: Ingredient = null) {
-    const modal = this.dialog.open(
-      name === this.INGREDIENT ? IngredientModalComponent : DirectionModalComponent, {
-      width: '60%',
-      minWidth: '500px',
-      panelClass: 'modalComeIn',
-      autoFocus: false,
-      data: { index, name, mode, value: ingredient }
-    });
+  showModal(name: string, index: number, mode: Mode, data: Ingredient | Direction = null) {
+    const config = {
+      width: '60%', minWidth: '500px', panelClass: 'modalComeIn', autoFocus: false,
+      data: { index, name, mode, value: data }
+    };
+
+    const modal = name === this.INGREDIENT ?
+      this.dialog.open(IngredientModalComponent, config) : this.dialog.open(DirectionModalComponent, config);
 
     modal.afterClosed().subscribe((result: ModalData<any>| undefined) => {
       if (result && result.name) { this[`handle${result.name}Data`](result.value, result.mode); }
@@ -154,18 +159,14 @@ export class CreateRecipeComponent implements OnInit {
   private handleIngredientData(ingredient: Ingredient, mode: Mode) {
     switch (mode) {
       case Mode.Create: {
-        if (ingredient) {
-          this.ingredientList.push(ingredient);
-          this.ingredients.setValue(this.ingredientList);
-        } else { throw new Error(`Cannot find ingredient to ${Mode.Create}`); }
+        if (ingredient) { this.ingredientList.push(ingredient); }
+        else { throw new Error(`Cannot find ingredient to ${Mode.Create}`); }
         break;
       }
       case Mode.Edit: {
         const index = this.ingredientList.findIndex(x => x.index === ingredient.index);
-        if (index >= 0) {
-          this.ingredientList[index] = ingredient;
-          this.ingredients.setValue(this.ingredientList);
-        } else { throw new Error(`Cannot find ingredient index to ${Mode.Edit}`); }
+        if (index >= 0) { this.ingredientList[index] = ingredient; }
+        else { throw new Error(`Cannot find ingredient index to ${Mode.Edit}`); }
         break;
       }
       case Mode.Delete: {
@@ -173,7 +174,6 @@ export class CreateRecipeComponent implements OnInit {
         if (index >= 0) {
           this.ingredientList.splice(index, 1);
           this.reOrderIndex('ingredientList');
-          this.ingredients.setValue(this.ingredientList);
         } else { throw new Error(`Cannot find ingredient index to ${Mode.Delete}`); }
         break;
       }
@@ -182,13 +182,33 @@ export class CreateRecipeComponent implements OnInit {
     this.ingredients.setValue(this.ingredientList);
   }
 
-  private handleDirectionData(direction: Direction, mode: Mode) {}
-
-  private  reOrderIndex(arrayName: string) {
-    (this[arrayName] as any[]).map((value, i) => {
-      value.index = i + 1;
-    });
+  private handleDirectionData(direction: Direction, mode: Mode) {
+    switch (mode) {
+      case Mode.Create: {
+        if (direction) { this.directionList.push(direction); }
+        else { throw new Error(`Cannot find direction to ${Mode.Create}`); }
+        break;
+      }
+      case Mode.Edit: {
+        const index = this.directionList.findIndex(x => x.index === direction.index);
+        if (index >= 0) { this.directionList[index] = direction; }
+        else { throw new Error(`Cannot find direction index to ${Mode.Edit}`); }
+        break;
+      }
+      case Mode.Delete: {
+        const index = this.directionList.findIndex(x => x.index === direction.index);
+        if (index >= 0) {
+          this.directionList.splice(index, 1);
+          this.reOrderIndex('directionList');
+        } else { throw new Error(`Cannot find direction index to ${Mode.Delete}`); }
+        break;
+      }
+      default: return;
+    }
+    this.directions.setValue(this.directionList);
   }
+
+  private reOrderIndex = (arrayName: string) => (this[arrayName] as any[]).map((value, i) => { value.index = i + 1; });
 
   test(e) {
     console.log(e);
