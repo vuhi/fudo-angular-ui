@@ -34,9 +34,6 @@ $fudo-angular-ui-theme: mat-light-theme($fudo-angular-ui-primary, $fudo-angular-
 @include angular-material-theme($fudo-angular-ui-theme);
 
 /* You can add global styles to this file, and also import other style files */
-@import url('~quill/dist/quill.core.css');
-@import url('~quill/dist/quill.bubble.css');
-@import url('~quill/dist/quill.snow.css');
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700&display=swap');
 @import url('~ngx-toastr/toastr.css');
 

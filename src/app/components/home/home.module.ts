@@ -17,13 +17,13 @@ import {
 } from '@angular/material';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { QuillModule } from 'ngx-quill';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 
 import { InteractionIconComponent } from './interaction-icon/interaction-icon.component';
 import { IngredientModalComponent } from './create-recipe/ingredient-modal/ingredient-modal.component';
 import { DirectionModalComponent } from './create-recipe/direction-modal/direction-modal.component';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,6 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
     ReactiveFormsModule,
     HomeRoutingModule,
     FontAwesomeModule,
-    QuillModule,
     PopoverModule.forRoot(),
 
     MatToolbarModule,
@@ -59,7 +58,8 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
     MatCardModule,
     MatDialogModule,
     MatExpansionModule,
-    MatSidenavModule
+    MatSidenavModule,
+    DragDropModule
   ],
   entryComponents: [
     LoginModalComponent,

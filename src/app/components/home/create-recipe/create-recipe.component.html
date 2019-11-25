@@ -196,22 +196,22 @@
                 Please fill in the direction...
               </span>
               <!-- DIRECTION LIST -->
-              <mat-accordion [multi]="false">
-                <div *ngFor="let direction of directionList" style="position: relative; width: 100%;">
+              <mat-accordion class="direction-drop-area" [multi]="false" cdkDropList (cdkDropListDropped)="drop($event)">
+                <div class="direction-drag-item" cdkDrag *ngFor="let direction of directionList">
                   <!-- SIDE BUTTONS -->
                   <mat-drawer-container class="side-navigation" autosize>
                     <mat-drawer #drawer mode="side" position="end">
                       <!-- SIDE CONTENT -->
                       <div class="action-button-wrapper">
                         <fa-icon [icon]="faTrashAlt" [size]="'2x'" class="delete-btn"
-                                 (click)="delete(direction)"></fa-icon>
+                          (click)="delete(direction)"></fa-icon>
                         <fa-icon [icon]="faPencilAlt" [size]="'2x'" class="edit-btn"
-                                 (click)="showModal(DIRECTION, direction?.index, EDIT, direction)"></fa-icon>
+                          (click)="showModal(DIRECTION, direction?.index, EDIT, direction)"></fa-icon>
                       </div>
                     </mat-drawer>
                     <!-- TOGGLE -->
                     <fa-icon #angleDoubleLeftIcon class="side-navigation-toggle" [icon]="faAngleDoubleLeft" [size]="'2x'"
-                             (click)="drawer.toggle(); flipIcon(angleDoubleLeftIcon);"></fa-icon>
+                      (click)="drawer.toggle(); flipIcon(angleDoubleLeftIcon);"></fa-icon>
                   </mat-drawer-container>
                   <!-- DIRECTION PANEL -->
                   <mat-expansion-panel class="item-panel shadow-border" [disabled]="!direction?.tip" [hideToggle]="true">

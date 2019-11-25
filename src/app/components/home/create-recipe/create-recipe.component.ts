@@ -15,6 +15,7 @@ import { IngredientModalComponent } from './ingredient-modal/ingredient-modal.co
 import { DirectionModalComponent } from './direction-modal/direction-modal.component';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 /* tslint:disable:one-line */
 @Component({
@@ -122,6 +123,17 @@ export class CreateRecipeComponent implements OnInit {
     console.log(this.recipeForm.getRawValue());
   }
 
+  flipIcon(icon: FaIconComponent): void {
+    icon.flip = icon.flip === 'horizontal' ? null : 'horizontal';
+    icon.render();
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.directionList, event.previousIndex, event.currentIndex);
+    this.reOrderIndex('directionList');
+    this.directions.setValue(this.directionList);
+  }
+
   // EDIT + CREATE
   showModal(name: string, index: number, mode: Mode, data: Ingredient | Direction = null) {
     const config = {
@@ -149,11 +161,6 @@ export class CreateRecipeComponent implements OnInit {
       if (result) { this[`handle${type}Data`](del, Mode.Delete); }
       return;
     });
-  }
-
-  flipIcon(icon: FaIconComponent): void {
-    icon.flip = icon.flip === 'horizontal' ? null : 'horizontal';
-    icon.render();
   }
 
   private handleIngredientData(ingredient: Ingredient, mode: Mode) {

@@ -1,6 +1,8 @@
 $side-navigation-toggle-w: 42px;
 $ingredient-color: #ff9447;
 $direction-color: #24aa86;
+
+// RECIPE FORM STYLES
 .create-recipe-form {
   .mat-card {
     border: 1px solid rgba(220, 220, 220, 0.5);
@@ -49,12 +51,8 @@ $direction-color: #24aa86;
         3px 3px 10px 2px rgba(0, 0, 0, 0.2) !important;
     }
   }
-  .add-ingredient-btn {
-    background-color: #ff8f58;
-  }
-  .add-direction-btn {
-    background-color: #24aa86;
-  }
+  .add-ingredient-btn { background-color: #ff8f58; }
+  .add-direction-btn { background-color: #24aa86; }
 
   .border-wrapper-ingredient, .border-wrapper-direction {
     border-radius: .5rem;
@@ -62,7 +60,9 @@ $direction-color: #24aa86;
     margin-top: 1rem;
   }
   .border-wrapper-ingredient { border: 1px solid rgba(255, 143, 88, 0.5); }
-  .border-wrapper-direction { border: 1px solid rgba(36, 170, 134, 0.5); }
+  .border-wrapper-direction {
+    border: 1px solid rgba(36, 170, 134, 0.5);
+  }
 
   // INSIDE .border-wrapper-ingredient
   .side-navigation {
@@ -101,7 +101,6 @@ $direction-color: #24aa86;
     }
   }
 
-
   .item-panel {
     margin: 0 0 1rem 0;
     .mat-expansion-panel-header, .mat-expansion-panel-header[aria-disabled=true] {
@@ -137,7 +136,7 @@ $direction-color: #24aa86;
       .ingredient-content, .direction-content {
         padding: 1rem .5rem 1rem 0;
         word-wrap: break-word;
-        word-break: break-all;
+        word-break: break-word;
       }
 
       .ingredient-content {
@@ -156,7 +155,7 @@ $direction-color: #24aa86;
         padding: 1rem .2rem;
         border-top: 1px solid rgba(128, 128, 128, 0.1);
         word-wrap: break-word;
-        word-break: break-all;
+        word-break: break-word;
       }
     }
     .ingredient-tip div:first-child { background-color: #{$ingredient-color}; }
@@ -172,10 +171,31 @@ $direction-color: #24aa86;
   }
 }
 
-//:host ::ng-deep .ingredient-item .mat-expansion-panel-header .mat-expansion-indicator {
-//  margin: 0 1rem 0 .5rem;
-//}
+// DRAG & DROP STYLES
+.cdk-drag-preview {
+  @extend .create-recipe-form;
+  ::ng-deep .item-panel .mat-expansion-panel-content .mat-expansion-panel-body {
+    padding: 0;
+  }
+}
 
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.direction-drag-item {
+  position: relative; width: 100%;
+}
+
+.direction-drop-area.cdk-drop-list-dragging .direction-drag-item:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+// SHADOW DOM OVERRIDE STYLES
 :host ::ng-deep .side-navigation .mat-drawer-content {
   display: grid;
   justify-items: center;
@@ -185,6 +205,7 @@ $direction-color: #24aa86;
   padding: 0;
 }
 
+// MEDIA QUERY
 @media screen and (max-width: 768px) {
   .equal-sign {
     display: none;
