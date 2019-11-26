@@ -24,6 +24,9 @@ import { IngredientModalComponent } from './create-recipe/ingredient-modal/ingre
 import { DirectionModalComponent } from './create-recipe/direction-modal/direction-modal.component';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ShareIconComponent } from './share-icon/share-icon.component';
+import { ReportComponent } from './report/report.component';
+import { ReportModalComponent } from './report/report-modal/report-modal.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,10 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     InteractionIconComponent,
     IngredientModalComponent,
     DirectionModalComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    ShareIconComponent,
+    ReportComponent,
+    ReportModalComponent
   ],
   imports: [
     CommonModule,

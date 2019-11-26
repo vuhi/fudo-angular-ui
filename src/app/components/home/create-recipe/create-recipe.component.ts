@@ -41,19 +41,8 @@ export class CreateRecipeComponent implements OnInit {
   readonly faPencilAlt = faPencilAlt;
 
   tagList: Tag[] = [];
-  ingredientList: Ingredient[] = [
-    { index: 1, name: 'ingredient 1', amount: '1/2', unit: 'kg', tip: 'here is some tips' },
-    { index: 2, name: 'ingredient 2', amount: '2/2', unit: 'kg', tip: 'here is some tips' },
-    { index: 3, name: 'ingredient 3', amount: '3/2', unit: 'kg', tip: 'here is some tips' },
-    { index: 4, name: 'ingredient 4', amount: '4/2', unit: 'kg', tip: 'here is some tips' }
-  ];
-  directionList: Direction[] = [
-    { index: 1, direction: 'direction direction direction direction direction 1', tip: 'here is some tips' },
-    { index: 2, direction: 'direction direction direction direction direction direction 2', tip: 'here is some tips' },
-    { index: 3, direction: 'direction direction direction direction direction direction 3', tip: 'here is some tips' },
-    { index: 4, direction: 'direction direction direction direction direction direction 4', tip: 'here is some tips' },
-    { index: 5, direction: 'direction direction direction direction direction direction 5 direction direction direction direction direction direction 5', tip: 'here is some tips' }
-  ];
+  ingredientList: Ingredient[] = [];
+  directionList: Direction[] = [];
   recipeForm: FormGroup;
 
   invisible = false;
@@ -216,8 +205,4 @@ export class CreateRecipeComponent implements OnInit {
   }
 
   private reOrderIndex = (arrayName: string) => (this[arrayName] as any[]).map((value, i) => { value.index = i + 1; });
-
-  test(e) {
-    console.log(e);
-  }
 }
