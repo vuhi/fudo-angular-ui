@@ -22,11 +22,206 @@ export class RecipeService {
   storeLocalRecipes = (next: Recipe[]) => this.recipes$.next(this.getLocalRecipeValue().concat(next));
 
   getRecipes(length: number)  {
-    if (!this.getLocalRecipeValue().length) {
-      const recipes: Recipe[] = [];
-      for (let i = 0; i < length; i++) {
-        recipes.push(this.generateRecipe());
+    const firstRecipe =  [
+      {
+        id: "12789847",
+        name: "Terell's Tacos",
+        userId: "11111",
+        user: {
+          userName: "tflowers",
+          email: "tflowers@gmail.com",
+          name: "string",
+          image: "https://picsum.photos/200/200"
+        },
+        createdOn: new Date(),
+        updatedOn: new Date(),
+        numberTried: 24,
+        numberLiked: 245,
+        image: "https://www.dinneratthezoo.com/wp-content/uploads/2018/05/ground-beef-tacos-2.jpg",
+        description: "good tacos",
+        tags: [{name:"veggie", color: TagColor.Blue}, {name:"authentic", color: TagColor.Red}],
+        prepTime: 12,
+        cookTime: 24,
+        readyTime: 36,
+        ingredients: [{index: 1,name:"tomatos", unit: "pound", amount: "10",tip:"make them good"}],
+        directions: [{index: 1, direction: "put all of the stuff in the taco", tip: "eat it"}],
+        isPublic: true
+      },
+      {
+        id: "12782308",
+        name: "World Famous Pizza",
+        userId: "11111",
+        user: {
+          userName: "tflowers",
+          email: "tflowers@gmail.com",
+          name: "string",
+          image: "https://picsum.photos/200/200"
+        },
+        createdOn: new Date(),
+        updatedOn: new Date(),
+        numberTried: 24,
+        numberLiked: 245,
+        image: "https://www.kitchentreaty.com/wp-content/uploads/2017/02/how-to-make-heart-shaped-pizzas-featured-660x430.jpg",
+        description: "best pizza in ohio",
+        tags: [{name:"new york", color: TagColor.Blue}, {name:"cute", color: TagColor.Red}],
+        prepTime: 12,
+        cookTime: 24,
+        readyTime: 36,
+        ingredients: [{index: 1,name:"tomatos", unit: "pound", amount: "10",tip:"make them good"}],
+        directions: [{index: 1, direction: "put all of the stuff in the taco", tip: "eat it"}],
+        isPublic: true
+      },
+      {
+        id: "12782308",
+        name: "Street Burgers",
+        userId: "11111",
+        user: {
+          userName: "tflowers",
+          email: "tflowers@gmail.com",
+          name: "string",
+          image: "https://picsum.photos/200/200"
+        },
+        createdOn: new Date(),
+        updatedOn: new Date(),
+        numberTried: 24,
+        numberLiked: 245,
+        image: "https://www.chatelaine.com/wp-content/uploads/2017/05/Bibimbap-homemade-burgers.jpg",
+        description: "family burgers",
+        tags: [{name:"yummy", color: TagColor.Blue}, {name:"carbs", color: TagColor.Red}],
+        prepTime: 12,
+        cookTime: 24,
+        readyTime: 36,
+        ingredients: [{index: 1,name:"tomatos", unit: "pound", amount: "10",tip:"make them good"}],
+        directions: [{index: 1, direction: "put all of the stuff in the taco", tip: "eat it"}],
+        isPublic: true
+      },
+      {
+        id: "12782308",
+        name: "Krabby Patty",
+        userId: "11111",
+        user: {
+          userName: "tflowers",
+          email: "tflowers@gmail.com",
+          name: "string",
+          image: "https://picsum.photos/200/200"
+        },
+        createdOn: new Date(),
+        updatedOn: new Date(),
+        numberTried: 24,
+        numberLiked: 245,
+        image: "https://img.cinemablend.com/filter:scale/quill/9/6/6/3/7/a/96637aabb562881adec1336c0d78acc6cc5d1403.jpg?mw=600",
+        description: "Now everyone will eat at the Chum Bucket, and I will rule the world!",
+        tags: [{name:"bikini bottom", color: TagColor.Blue}, {name:"secret", color: TagColor.Red}],
+        prepTime: 12,
+        cookTime: 24,
+        readyTime: 36,
+        ingredients: [{index: 1,name:"tomatos", unit: "pound", amount: "10",tip:"make them good"}],
+        directions: [{index: 1, direction: "put all of the stuff in the taco", tip: "eat it"}],
+        isPublic: true
+      },
+
+      {
+        id: "12789847",
+        name: "Spicy Chips",
+        userId: "11111",
+        user: {
+          userName: "tflowers",
+          email: "tflowers@gmail.com",
+          name: "string",
+          image: "https://picsum.photos/200/200"
+        },
+        createdOn: new Date(),
+        updatedOn: new Date(),
+        numberTried: 24,
+        numberLiked: 245,
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPz215_t12H_G90S8BoTyC68qQSGXI_kfnz-0bDhNMNFXuHAavBQ&s",
+        description: "hot chip",
+        tags: [{name:"spicy", color: TagColor.Blue}, {name:"snack", color: TagColor.Red}],
+        prepTime: 12,
+        cookTime: 24,
+        readyTime: 36,
+        ingredients: [{index: 1,name:"tomatos", unit: "pound", amount: "10",tip:"make them good"}],
+        directions: [{index: 1, direction: "put all of the stuff in the taco", tip: "eat it"}],
+        isPublic: true
+      },
+      {
+        id: "12782308",
+        name: "Grandma's Casserole",
+        userId: "11111",
+        user: {
+          userName: "tflowers",
+          email: "tflowers@gmail.com",
+          name: "string",
+          image: "https://picsum.photos/200/200"
+        },
+        createdOn: new Date(),
+        updatedOn: new Date(),
+        numberTried: 24,
+        numberLiked: 245,
+        image: "https://www.keyingredient.com/media/6f/e3/495df56df18d5efc3a5e5fa4ab4d960dee6a.jpg/rh/grandmas-chicken-casserole.jpg",
+        description: "my grandmas casserole",
+        tags: [{name:"dinner", color: TagColor.Blue}, {name:"family style", color: TagColor.Red}],
+        prepTime: 12,
+        cookTime: 24,
+        readyTime: 36,
+        ingredients: [{index: 1,name:"tomatos", unit: "pound", amount: "10",tip:"make them good"}],
+        directions: [{index: 1, direction: "put all of the stuff in the taco", tip: "eat it"}],
+        isPublic: true
+      },
+      {
+        id: "12782308",
+        name: "Best Curry I have ever made",
+        userId: "11111",
+        user: {
+          userName: "tflowers",
+          email: "tflowers@gmail.com",
+          name: "string",
+          image: "https://picsum.photos/200/200"
+        },
+        createdOn: new Date(),
+        updatedOn: new Date(),
+        numberTried: 24,
+        numberLiked: 245,
+        image: "https://farm8.staticflickr.com/7078/26871836745_a85ae37fe1_o.jpg",
+        description: "quality curry",
+        tags: [{name:"college", color: TagColor.Blue}, {name:"cheap", color: TagColor.Red}],
+        prepTime: 12,
+        cookTime: 24,
+        readyTime: 36,
+        ingredients: [{index: 1,name:"tomatos", unit: "pound", amount: "10",tip:"make them good"}],
+        directions: [{index: 1, direction: "put all of the stuff in the taco", tip: "eat it"}],
+        isPublic: true
+      },
+      {
+        id: "12782308",
+        name: "Bologna Sandwich",
+        userId: "11111",
+        user: {
+          userName: "tflowers",
+          email: "tflowers@gmail.com",
+          name: "string",
+          image: "https://picsum.photos/200/200"
+        },
+        createdOn: new Date(),
+        updatedOn: new Date(),
+        numberTried: 24,
+        numberLiked: 245,
+        image: "https://cdn.vox-cdn.com/thumbor/urqQT_LdISam4VksIF9AhFe6rvI=/1400x0/filters:no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7569721/bologna-sandwich-ss.0.jpeg",
+        description: "josh's Bologna Sandwich",
+        tags: [{name:"easy", color: TagColor.Blue}, {name:"fast", color: TagColor.Red}],
+        prepTime: 12,
+        cookTime: 24,
+        readyTime: 36,
+        ingredients: [{index: 1,name:"tomatos", unit: "pound", amount: "10",tip:"make them good"}],
+        directions: [{index: 1, direction: "put all of the stuff in the taco", tip: "eat it"}],
+        isPublic: true
       }
+  ]
+    if (!this.getLocalRecipeValue().length) {
+      const recipes: Recipe[] = firstRecipe;
+      // for (let i = 0; i < length; i++) {
+      //   recipes.push(this.generateRecipe());
+      // }
       this.storeLocalRecipes(recipes);
     }
     return this.getLocalRecipe$().pipe(map((res: Recipe[]) => res));

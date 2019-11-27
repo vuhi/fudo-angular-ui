@@ -20,18 +20,18 @@
       z-index: 1;
       border-radius: .5rem;
       background-color: #333;
-      opacity: .5;
+      opacity: .04;
       background-blend-mode: darken;
       transition: opacity 500ms;
     }
-
-    &:after {
-      content: '';
-      top: .5rem; bottom: .5rem; left: .5rem; right: .5rem;
-      position: absolute;
-      z-index: 1;
-      border: 1px solid #fff;
-    }
+    //
+    // &:after {
+    //   content: '';
+    //   top: .5rem; bottom: .5rem; left: .5rem; right: .5rem;
+    //   position: absolute;
+    //   z-index: 1;
+    //   border: 1px solid #fff;
+    // }
 
     &:hover {
       &:before, &:after {
@@ -79,5 +79,3 @@
     columns: 2;
   }
 }
-
-

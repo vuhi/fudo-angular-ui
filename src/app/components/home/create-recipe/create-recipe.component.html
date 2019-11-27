@@ -40,7 +40,7 @@
                 <mat-icon>close</mat-icon>
               </button>
               <mat-hint align="start">Ex: https://picsum.photo/400/400</mat-hint>
-              <mat-hint align="end">{{getEl('name').value?.length}} / 250</mat-hint>
+              <mat-hint align="end">{{getEl('image').value?.length}} / 250</mat-hint>
               <mat-error *ngIf="isInvalid('image')">
                 <span *ngIf="getEl('image', 'required')">This field is required</span>
                 <span *ngIf="getEl('image', 'pattern')">This field should be a valid url</span>
