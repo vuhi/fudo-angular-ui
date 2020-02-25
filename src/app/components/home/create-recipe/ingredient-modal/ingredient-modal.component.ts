@@ -11,10 +11,10 @@ import { Ingredient, ModalData } from '../../../../models';
 })
 export class IngredientModalComponent implements OnInit {
 
-  readonly NAME_MAX_LEN = 250;
+  readonly NAME_MAX_LEN = 255;
   readonly UNIT_MAX_LEN = 100;
-  readonly AMOUNT_MAX_LEN = 50;
-  readonly TIP_MAX_LEN = 250;
+  readonly AMOUNT_MAX_LEN = 100;
+  readonly TIP_MAX_LEN = 255;
 
   ingredientForm: FormGroup;
 

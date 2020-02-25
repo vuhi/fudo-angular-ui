@@ -69,8 +69,8 @@ export class CreateRecipeComponent implements OnInit {
   initForm(recipe: Recipe = null) {
     this.recipeForm = this.fb.group({
       id: null,
-      name: this.fb.control('', [Validators.required, Validators.maxLength(120)]),
-      image: this.fb.control('', [Validators.required, Validators.maxLength(250), Validators.pattern(URL_PATTERN)]),
+      name: this.fb.control('', [Validators.required, Validators.maxLength(255)]),
+      image: this.fb.control('', [Validators.required, Validators.maxLength(255), Validators.pattern(URL_PATTERN)]),
       description: this.fb.control('', [Validators.required, Validators.maxLength(500)]),
       tags: this.fb.control(this.tagList, [Validators.required]),
       prepTime: this.fb.control('', [Validators.required, Validators.max(999999999), Validators.min(0)]),

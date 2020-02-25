@@ -21,7 +21,7 @@ export class SearchRecipeComponent implements OnInit {
 
   getRecipes() {
     this.recipeService.getRecipes(this.MIN_NUM).subscribe(
-      res => this.recipes = res,
+      res => { this.recipes = res; console.log(this.recipes) },
       err => { throw err; }
     );
   }
