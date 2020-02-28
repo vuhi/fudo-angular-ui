@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { NavComponent } from './nav/nav.component';
-import { SearchRecipeComponent } from './search-recipe/search-recipe.component';
+import { ExploreRecipeComponent } from './explore-recipe/explore-recipe.component';
 import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
 import { LoginModalComponent } from './login-modal/login-modal.component';
 import { RecipeComponent } from './recipe/recipe.component';
@@ -32,7 +32,7 @@ import { ReportModalComponent } from './report/report-modal/report-modal.compone
   declarations: [
     HomeComponent,
     NavComponent,
-    SearchRecipeComponent,
+    ExploreRecipeComponent,
     CreateRecipeComponent,
     LoginModalComponent,
     RecipeComponent,

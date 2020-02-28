@@ -12,8 +12,8 @@
       </div>
     </div>
     <div class="recipe-owner">
-      <img class="owner-img" [src]="recipe?.user?.image" alt="User Avatar" (error)="useUserPlaceHolder($event)">
-      <div class="owner-name">{{recipe?.user?.userName}}</div>
+      <img class="owner-img" [src]="recipe?.createdBy?.image" alt="User Avatar" (error)="useUserPlaceHolder($event)">
+      <div class="owner-name">{{recipe?.createdBy?.userName}}</div>
     </div>
   </div>
   <div class="recipe-r-1">

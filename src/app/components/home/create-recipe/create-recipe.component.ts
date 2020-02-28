@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { LIMITED_TAG, URL_PATTERN } from '../../../utils/app-constant';
 import { Direction, Ingredient, ModalData, Mode, Recipe, Tag, TagColor } from '../../../models';
-import { COLORS } from '../../../models/tag.model';
+// import { COLORS } from '../../../models/tag.model';
 import * as faker from 'faker';
 
 import { IngredientModalComponent } from './ingredient-modal/ingredient-modal.component';
@@ -83,14 +83,14 @@ export class CreateRecipeComponent implements OnInit {
 
   updateReadyTime = () => this.getEl('readyTime').setValue(
     this.getEl('prepTime').value + this.getEl('cookTime').value
-  );
+  )
 
   addTag(event: MatChipInputEvent): void {
     const value = event.value;
     this.getEl('tags').markAsDirty();
     this.getEl('tags').markAsTouched();
     if (value && value.trim() && this.tagList.length <= this.LIMITED_TAG && !this.tagList.some(tag => tag.name === value.trim())) {
-      this.tagList.push({name: value.trim(), color: TagColor[COLORS[faker.random.number({ min: 0, max: 6 })]]});
+      // this.tagList.push({name: value.trim(), color: TagColor[COLORS[faker.random.number({ min: 0, max: 6 })]]});
       this.getEl('tags').setValue(this.tagList);
       event.input.value = '';
       this.invisible = this.tagList.length >= LIMITED_TAG;

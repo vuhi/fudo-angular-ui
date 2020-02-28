@@ -4,10 +4,10 @@ import { Recipe } from '../../../models';
 
 @Component({
   selector: 'app-search-recipe',
-  templateUrl: './search-recipe.component.html',
-  styleUrls: ['./search-recipe.component.scss']
+  templateUrl: './explore-recipe.component.html',
+  styleUrls: ['./explore-recipe.component.scss']
 })
-export class SearchRecipeComponent implements OnInit {
+export class ExploreRecipeComponent implements OnInit {
 
   @ViewChild('recipeGrid', { static: true }) recipeGrid: ElementRef;
   recipes: Recipe[] = [];
@@ -20,8 +20,8 @@ export class SearchRecipeComponent implements OnInit {
   }
 
   getRecipes() {
-    this.recipeService.getRecipes(this.MIN_NUM).subscribe(
-      res => { this.recipes = res; console.log(this.recipes) },
+    this.recipeService.getRecipes(1, this.MIN_NUM).subscribe(
+      res => this.recipes = res,
       err => { throw err; }
     );
   }

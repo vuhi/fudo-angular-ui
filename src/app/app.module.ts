@@ -8,6 +8,7 @@ import { AppErrorHandler } from './utils/app-error-hanler';
 
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { ToastrModule } from 'ngx-toastr';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [ AppComponent ],
@@ -15,6 +16,7 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     PopoverModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 8000,

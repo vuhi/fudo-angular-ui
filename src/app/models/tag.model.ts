@@ -3,14 +3,21 @@ export interface Tag {
   color?: TagColor;
 }
 
-export enum TagColor {
-  Blue = '#3884ff',
-  Orange = '#ff9447',
-  Red = '#ff4747',
-  Green = '#42ed70',
-  Black = '#000000',
-  Gray = '#949599',
-  Yellow = '#d9d566'
+export interface TagColor {
+  name: string;
+  background: string;
+  text: string;
 }
 
-export const COLORS = ['Blue', 'Orange', 'Red', 'Green', 'Black', 'Gray', 'Yellow'];
+
+// export enum TagColor {
+//   Blue = '#3884ff',
+//   Orange = '#ff9447',
+//   Red = '#ff4747',
+//   Green = '#42ed70',
+//   Black = '#000000',
+//   Gray = '#949599',
+//   Yellow = '#d9d566'
+// }
+
+// export const COLORS = ['Blue', 'Orange', 'Red', 'Green', 'Black', 'Gray', 'Yellow'];

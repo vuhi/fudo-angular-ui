@@ -37,9 +37,14 @@
       &:before, &:after {
         opacity: 0;
       }
+
+      .recipe-img {
+        transform: scale(1.1) rotate(5deg) translateY(-10px);
+      }
     }
 
     .recipe-img {
+      transition: transform .5s ease-in-out;
       width: 100%;
     }
 
@@ -50,15 +55,21 @@
   }
 }
 
-@media screen and (min-width: 2101px) {
+@media screen and (min-width: 2601px) {
   .recipe-grid {
     columns: 6;
   }
 }
 
-@media screen and (max-width: 2100px) and (min-width: 1501px) {
+@media screen and (max-width: 2600px) and (min-width: 2101px) {
   .recipe-grid {
     columns: 5;
+  }
+}
+
+@media screen and (max-width: 2100px) and (min-width: 1501px) {
+  .recipe-grid {
+    columns: 4;
   }
 }
 
