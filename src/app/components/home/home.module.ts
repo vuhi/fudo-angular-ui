@@ -18,6 +18,7 @@ import {
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PopoverModule } from 'ngx-bootstrap/popover';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { InteractionIconComponent } from './interaction-icon/interaction-icon.component';
 import { IngredientModalComponent } from './create-recipe/ingredient-modal/ingredient-modal.component';
@@ -49,8 +50,10 @@ import { ReportModalComponent } from './report/report-modal/report-modal.compone
     FormsModule,
     ReactiveFormsModule,
     HomeRoutingModule,
+
     FontAwesomeModule,
     PopoverModule.forRoot(),
+    InfiniteScrollModule,
 
     MatToolbarModule,
     MatInputModule,

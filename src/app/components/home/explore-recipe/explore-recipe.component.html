@@ -1,4 +1,7 @@
-<div class="recipe-grid">
+<div class="recipe-grid"
+  infinite-scroll
+  [infiniteScrollDistance]="2"
+  (scrolled)="onScrollDown()">
   <ng-container *ngFor="let recipe of recipes">
     <div class="card recipe-card" [routerLink]="['/','recipe', recipe?.id]">
       <img class="recipe-img" [src]="recipe?.image" alt="Recipe Image">
