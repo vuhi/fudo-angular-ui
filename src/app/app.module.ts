@@ -8,10 +8,12 @@ import { AppErrorHandler } from './utils/app-error-hanler';
 
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { ToastrModule } from 'ngx-toastr';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { ErrorComponent } from './components/error/error.component';
 
 @NgModule({
-  declarations: [ AppComponent ],
+  declarations: [ AppComponent, AboutUsComponent, ErrorComponent ],
   imports: [
     BrowserModule,
     AppRoutingModule,
