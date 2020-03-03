@@ -18,7 +18,7 @@ export class AppErrorHandler implements ErrorHandler {
       let message;
       switch (true) {
         case error instanceof HttpErrorResponse:
-          message = error.error.message;
+          message = error.status === 0 ? 'status code 0 throw. unable to connect to api endpoint.' : error.error.message;
           break;
         case error instanceof Error:
           message = error.message;

@@ -26,7 +26,7 @@ export class RecipeComponent implements OnInit, OnDestroy {
   userPlaceHolder = '../../../../assets/user_img_place_holder.png';
   userRecipeHolder = '../../../../assets/recipe_img_place_holder.png';
 
-  unsubcribe = new Subject<void>();
+  unsubscribe = new Subject<void>();
 
   constructor(
     private route: ActivatedRoute,
@@ -47,19 +47,19 @@ export class RecipeComponent implements OnInit, OnDestroy {
   useRecipePlaceHolder = (event) => event.target.src = this.userRecipeHolder;
 
   getRecipeById(recipeId: string) {
-    this.recipeService.getRecipeById(recipeId).pipe(takeUntil(this.unsubcribe))
+    this.recipeService.getRecipeById(recipeId).pipe(takeUntil(this.unsubscribe))
       .subscribe(
       res => this.recipe = res,
       error => {
         this.toastr.warning('Redirecting to home page in 8s', 'Warning', { progressBar: true })
-          .onHidden.pipe(takeUntil(this.unsubcribe)).subscribe(() => this.router.navigate(['/']));
+          .onHidden.pipe(takeUntil(this.unsubscribe)).subscribe(() => this.router.navigate(['/']));
         throw error;
       });
   }
 
   ngOnDestroy(): void {
-    this.unsubcribe.next();
-    this.unsubcribe.complete();
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
     this.toastr.clear();
   }
 }

@@ -2,7 +2,7 @@ import { Tag } from './tag.model';
 import { User } from './user.model';
 
 export interface Recipe {
-  id?: string;
+  _id?: string;
   name: string;
   createdBy?: User;
   createdOn: Date;

@@ -14,6 +14,14 @@ export class ExploreRecipeComponent implements OnInit {
   private  MIN_NUM = 15;
   private PAGE = 1;
 
+  // options = {
+  //   transitionDuration: '0.5s',
+  //   gutter: 5,
+  //   resize: true,
+  //   initLayout: true,
+  //   fitWidth: true
+  // };
+
   constructor(private recipeService: RecipeService) { }
 
   ngOnInit() {
@@ -21,12 +29,11 @@ export class ExploreRecipeComponent implements OnInit {
   }
 
   getRecipes() {
-    this.recipeService.getRecipes(this.PAGE, this.MIN_NUM).subscribe(res => {
-        console.log(res);
-        console.log(this.PAGE);
+    this.recipeService.getRecipes(this.PAGE, this.MIN_NUM).subscribe(
+      res => {
         this.recipes.push(...res);
-
         this.PAGE++;
+        // console.log(this.recipes)
       },
       err => { throw err; }
     );

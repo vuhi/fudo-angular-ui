@@ -37,15 +37,17 @@ export class RecipeService {
   }
 
   getRecipeById(recipeId: string) {
-    return this.getLocalRecipe$().pipe(
-      map((res: Recipe[]) => {
-        const recipe = res.find(recipes => recipes.id === recipeId);
-        if (!recipe) { throw new Error('Cannot find the current recipe!'); }
-        recipe.directions.forEach(direction => direction.isOpen = false);
-        recipe.ingredients.forEach(direction => direction.isOpen = false);
-        return recipe;
-      }),
-    );
+    // return this.getLocalRecipe$().pipe(
+    //   map((res: Recipe[]) => {
+    //     const recipe = res.find(recipes => recipes.id === recipeId);
+    //     if (!recipe) { throw new Error('Cannot find the current recipe!'); }
+    //     recipe.directions.forEach(direction => direction.isOpen = false);
+    //     recipe.ingredients.forEach(direction => direction.isOpen = false);
+    //     return recipe;
+    //   }),
+    // );
+    return this.http.get(`${environment.API_URL}/recipes/${recipeId}`)
+      .pipe(map((res: Res<Recipe>) => res.data ));
   }
 
   // HELPER FUNC
