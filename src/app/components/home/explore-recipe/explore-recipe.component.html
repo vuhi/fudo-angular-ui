@@ -1,30 +1,48 @@
+<!--<div class="recipe-grid"-->
+<!--  infinite-scroll-->
+<!--  [infiniteScrollDistance]="2"-->
+<!--  (scrolled)="onScrollDown()">-->
+<!--  <ng-container *ngFor="let recipe of recipes">-->
+<!--    <div class="card recipe-card" [routerLink]="['/', 'home', 'recipe', recipe?._id]">-->
+<!--      <img class="recipe-img" [src]="recipe?.image" alt="Recipe Image">-->
+<!--      <div class="card-body">-->
+<!--        <h4 class="font-weight-bold mb-2">{{recipe?.name}}</h4>-->
+<!--        <p>{{recipe?.description | summary }}</p>-->
+<!--        <mat-chip-list class="mt-2 ml-auto">-->
+<!--          <mat-chip *ngFor="let tag of recipe?.tags"-->
+<!--            [ngStyle]="{'background': tag?.color?.background, 'color': tag?.color?.text}" selected>-->
+<!--            {{tag?.name}}-->
+<!--          </mat-chip>-->
+<!--        </mat-chip-list>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </ng-container>-->
+<!--</div>-->
+
 <div class="recipe-grid"
   infinite-scroll
   [infiniteScrollDistance]="2"
   (scrolled)="onScrollDown()">
-  <ng-container *ngFor="let recipe of recipes">
-    <div class="card recipe-card" [routerLink]="['/', 'home', 'recipe', recipe?._id]">
-      <img class="recipe-img" [src]="recipe?.image" alt="Recipe Image">
-      <div class="card-body">
-        <h4 class="font-weight-bold mb-2">{{recipe?.name}}</h4>
-        <p>{{recipe?.description | summary }}</p>
-        <mat-chip-list class="mt-2 ml-auto">
-          <mat-chip *ngFor="let tag of recipe?.tags"
-            [ngStyle]="{'background': tag?.color?.background, 'color': tag?.color?.text}" selected>
-            {{tag?.name}}
-          </mat-chip>
-        </mat-chip-list>
+  <app-bar-loader class="loader" [ngClass]="{'appear': isLoad }"></app-bar-loader>
+  <ngx-masonry [options]="options" [useImagesLoaded]="true">
+    <span ngxMasonryItem *ngFor="let recipe of recipes" class="masonry-item">
+      <div class="card recipe-card" [routerLink]="['/', 'home', 'recipe', recipe?._id]">
+        <img class="recipe-img" [src]="recipe?.image" alt="Recipe Image">
+        <div class="card-body">
+          <h4 class="font-weight-bold mb-2">{{recipe?.name}}</h4>
+          <p>{{recipe?.description | summary }}</p>
+          <mat-chip-list class="mt-2 ml-auto">
+            <mat-chip *ngFor="let tag of recipe?.tags"
+              [ngStyle]="{'background': tag?.color?.background, 'color': tag?.color?.text}" selected>
+              {{tag?.name}}
+            </mat-chip>
+          </mat-chip-list>
+        </div>
       </div>
-    </div>
-  </ng-container>
+    </span>
+  </ngx-masonry>
+  <div class="d-flex justify-content-center align-items-center">
+    <h5 class="end-content" [ngClass]="{'appear': isEndContent }">END OF CONTENT</h5>
+  </div>
 </div>
 
-<!--<ng-masonry-grid-->
-<!--  [masonryOptions]="options"-->
-<!--  [useAnimation]="false"-->
-<!--  [useImagesLoaded]="false">-->
-<!--  &lt;!&ndash; Masonry Grid Item &ndash;&gt;-->
-<!--  <ng-masonry-grid-item id="{{'masonry-item-'+i}}" *ngFor="let recipe of recipes; let i = index;">-->
-<!--    <img class="recipe-img" [src]="recipe?.image" alt="Recipe Image">&ndash;&gt;-->
-<!--  </ng-masonry-grid-item>-->
-<!--</ng-masonry-grid>-->

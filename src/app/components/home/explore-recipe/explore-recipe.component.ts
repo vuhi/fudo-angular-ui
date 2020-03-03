@@ -1,6 +1,9 @@
-import {Component, OnInit, ElementRef, ViewChild, Renderer2 } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { tap } from 'rxjs/operators';
+
 import { RecipeService } from '../../../services';
 import { Recipe } from '../../../models';
+
 
 @Component({
   selector: 'app-search-recipe',
@@ -11,29 +14,37 @@ export class ExploreRecipeComponent implements OnInit {
 
   @ViewChild('recipeGrid', { static: true }) recipeGrid: ElementRef;
   recipes: Recipe[] = [];
-  private  MIN_NUM = 15;
+  isLoad  = false;
+  isEndContent = false;
+  private MIN_NUM = 15;
   private PAGE = 1;
 
-  // options = {
-  //   transitionDuration: '0.5s',
-  //   gutter: 5,
-  //   resize: true,
-  //   initLayout: true,
-  //   fitWidth: true
-  // };
+  options = {
+    transitionDuration: '1s',
+    gutter: 25,
+    resize: true,
+    initLayout: true,
+    fitWidth: true
+  };
 
-  constructor(private recipeService: RecipeService) { }
+  constructor(
+    private recipeService: RecipeService
+  ) { }
 
   ngOnInit() {
     this.getRecipes();
   }
 
   getRecipes() {
-    this.recipeService.getRecipes(this.PAGE, this.MIN_NUM).subscribe(
-      res => {
+    this.recipeService.getRecipes(this.PAGE, this.MIN_NUM).pipe(
+      tap(res => {
+        this.isLoad = true;
+        this.isEndContent = res.length === 0;
+      }))
+      .subscribe(res => {
         this.recipes.push(...res);
         this.PAGE++;
-        // console.log(this.recipes)
+        this.isLoad = false;
       },
       err => { throw err; }
     );

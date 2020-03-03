@@ -6,14 +6,15 @@ import { HomeRoutingModule } from './home-routing.module';
 import {
   MatButtonModule, MatChipsModule, MatIconModule, MatInputModule,
   MatMenuModule, MatToolbarModule, MatFormFieldModule, MatOptionModule,
-  MatSelectModule, MatCardModule, MatDialogModule, MatExpansionModule, MatSidenavModule
+  MatSelectModule, MatCardModule, MatDialogModule, MatExpansionModule, MatSidenavModule,
+  MatSnackBarModule
 } from '@angular/material';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { NgMasonryGridModule } from 'ng-masonry-grid';
+import { NgxMasonryModule } from 'ngx-masonry';
 import { SumaryPipe } from '../../utils/sumary-pipe/sumary.pipe';
 
 import { HomeComponent } from './home.component';
@@ -29,7 +30,7 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { ShareIconComponent } from './share-icon/share-icon.component';
 import { ReportComponent } from './report/report.component';
 import { ReportModalComponent } from './report/report-modal/report-modal.component';
-
+import { BarLoaderComponent } from '../loaders/bar-loader/bar-loader.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ReportModalComponent } from './report/report-modal/report-modal.compone
     ShareIconComponent,
     ReportComponent,
     ReportModalComponent,
-    SumaryPipe
+    SumaryPipe,
+    BarLoaderComponent
   ],
   imports: [
     CommonModule,
@@ -57,7 +59,8 @@ import { ReportModalComponent } from './report/report-modal/report-modal.compone
     FontAwesomeModule,
     PopoverModule.forRoot(),
     InfiniteScrollModule,
-    NgMasonryGridModule,
+    NgxMasonryModule,
+    DragDropModule,
 
     MatToolbarModule,
     MatInputModule,
@@ -72,7 +75,7 @@ import { ReportModalComponent } from './report/report-modal/report-modal.compone
     MatDialogModule,
     MatExpansionModule,
     MatSidenavModule,
-    DragDropModule
+    MatSnackBarModule
   ],
   entryComponents: [
     LoginModalComponent,

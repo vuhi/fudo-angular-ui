@@ -1,0 +1,45 @@
+$initColor: #f09819;
+$colorEnd: #ff512f;
+
+.bar-loader {
+  position: relative;
+  width: 65px;
+  margin: 6em auto;
+
+  span {
+    position: absolute;
+    display: block;
+    bottom: 0;
+    width: 9px;
+    height: 5px;
+    border-radius: 5px;
+    background: $initColor;
+    animation: bar_loader 2s infinite ease-in-out;
+
+    @for $i from 1 through 5 {
+      &:nth-child(#{$i + 1}) {
+        left: 11 * $i +px;
+        animation-delay: 200 * $i +ms;
+      }
+    }
+
+  }
+}
+
+@keyframes bar_loader {
+  0% {
+    height: 5px;
+    transform: translateY(0);
+    background: $initColor;
+  }
+  25% {
+    height: 30px;
+    transform: translateY(15px);
+    background: $colorEnd;
+  }
+  50%,100% {
+    height: 5px;
+    transform: translateY(0);
+    background: $initColor;
+  }
+}

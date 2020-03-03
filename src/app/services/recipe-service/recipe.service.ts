@@ -16,20 +16,12 @@ export class RecipeService {
 
   constructor(private http: HttpClient) { }
 
-  private recipes$: BehaviorSubject<Recipe[]> = new BehaviorSubject<Recipe[]>([]);
-  getLocalRecipeValue = (): Recipe[] => this.recipes$.getValue();
-  getLocalRecipe$ = (): Observable<Recipe[]> => this.recipes$.asObservable();
-  storeLocalRecipes = (next: Recipe[]) => this.recipes$.next(this.getLocalRecipeValue().concat(next));
+  // private recipes$: BehaviorSubject<Recipe[]> = new BehaviorSubject<Recipe[]>([]);
+  // getLocalRecipeValue = (): Recipe[] => this.recipes$.getValue();
+  // getLocalRecipe$ = (): Observable<Recipe[]> => this.recipes$.asObservable();
+  // storeLocalRecipes = (next: Recipe[]) => this.recipes$.next(this.getLocalRecipeValue().concat(next));
 
   getRecipes(page: number, limit: number)  {
-    // if (!this.getLocalRecipeValue().length) {
-    //   const recipes: Recipe[] = [];
-    //   for (let i = 0; i < length; i++) {
-    //     recipes.push(this.generateRecipe());
-    //   }
-    //   this.storeLocalRecipes(recipes);
-    // }
-    // return this.getLocalRecipe$().pipe(map((res: Recipe[]) => res));
     return this.http.get(
       `${environment.API_URL}/recipes/all`,
       { params: new HttpParams().set('page', page.toString()).set('limit', limit.toString())}
@@ -37,15 +29,6 @@ export class RecipeService {
   }
 
   getRecipeById(recipeId: string) {
-    // return this.getLocalRecipe$().pipe(
-    //   map((res: Recipe[]) => {
-    //     const recipe = res.find(recipes => recipes.id === recipeId);
-    //     if (!recipe) { throw new Error('Cannot find the current recipe!'); }
-    //     recipe.directions.forEach(direction => direction.isOpen = false);
-    //     recipe.ingredients.forEach(direction => direction.isOpen = false);
-    //     return recipe;
-    //   }),
-    // );
     return this.http.get(`${environment.API_URL}/recipes/${recipeId}`)
       .pipe(map((res: Res<Recipe>) => res.data ));
   }
