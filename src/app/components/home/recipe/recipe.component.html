@@ -30,12 +30,12 @@
             </div>
           </div>
           <div class="recipe-interaction d-flex flex-row">
-            <div class="like-emoji mr-5">
-              <app-interaction-icon [recipeId]="recipe?._id" [icon]="faThumbsUp" [interactedColor]="'#3884ff'" [num]="99999"></app-interaction-icon>
-            </div>
-            <div class="cook-emoji">
-              <app-interaction-icon [recipeId]="recipe?._id" [icon]="faFire" [interactedColor]="'#ff4747'" [num]="10"></app-interaction-icon>
-            </div>
+<!--            <div class="like-emoji mr-5">-->
+<!--              <app-interaction-icon [recipeId]="recipe?._id" [faIcon]="faThumbsUp" [interactedColor]="'#3884ff'" [num]="99999"></app-interaction-icon>-->
+<!--            </div>-->
+<!--            <div class="cook-emoji">-->
+<!--              <app-interaction-icon [recipeId]="recipe?._id" [matIconName]="'cook_icon'"  [interactedColor]="'#ff4747'" [num]="10"></app-interaction-icon>-->
+<!--            </div>-->
           </div>
         </div>
         <img class="recipe-image" [src]="recipe?.image" alt="Recipe Image" (error)="useRecipePlaceHolder($event)">

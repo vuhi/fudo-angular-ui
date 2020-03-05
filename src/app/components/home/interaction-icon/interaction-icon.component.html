@@ -1,5 +1,8 @@
 <span class="d-flex flex-row justify-content-center align-items-center">
   <div #interacionNum class="interaction-num">{{num}}</div>
-  <fa-icon #interacionIcon [icon]="icon" (click)="onInteract()"></fa-icon>
+  <span #interacionIcon>
+    <fa-icon class="interaction-icon" *ngIf="faIcon" [icon]="faIcon" (click)="onInteract()" ></fa-icon>
+    <mat-icon class="interaction-icon"  *ngIf="matIconName" svgIcon="{{matIconName}}"></mat-icon>
+  </span>
 </span>
 

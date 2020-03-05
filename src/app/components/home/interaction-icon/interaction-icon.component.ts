@@ -12,8 +12,8 @@ export class InteractionIconComponent implements OnInit, AfterViewInit {
   @ViewChild('interacionNum', { static: false, read: ElementRef }) interacionNum: ElementRef;
 
   @Input() num: number;
-  @Input() icon: IconDefinition;
-  @Input() pathToSVG: string;
+  @Input() faIcon: IconDefinition;
+  @Input() matIconName: string;
   @Input() recipeId: string;
   @Input() interactedColor: string;
 

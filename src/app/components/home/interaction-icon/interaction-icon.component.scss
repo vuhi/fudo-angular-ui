@@ -5,7 +5,12 @@
   margin: .4rem 1rem 0 0;
 }
 
-fa-icon {
+.interaction-icon {
+  color: #ff8f58;
+  filter: invert(60%) sepia(19%) saturate(1347%) hue-rotate(333deg) brightness(103%) contrast(103%);
+  //font-weight: 4rem;
+  width: 4rem;
+  height: 4rem;
   cursor: pointer;
   font-size: 1.5rem;
   transition: transform .3s ease-in-out;

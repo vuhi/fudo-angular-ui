@@ -75,10 +75,14 @@
           grid-column-gap: .5rem;
           padding-top: .5rem;
           font-size: 1.5rem;
-          color: rgba(0, 0, 0, 0.9);
+
+          .num-serving-icon, .calories-icon, .level-icon  {
+            color: #ff512f;
+          }
 
           span {
-             margin: 0 .5rem;
+            color: rgba(0, 0, 0, 0.8);
+            margin: 0 .5rem;
           }
         }
 
