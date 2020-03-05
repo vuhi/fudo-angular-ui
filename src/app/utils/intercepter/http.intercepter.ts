@@ -18,7 +18,7 @@ export class Interceptor implements HttpInterceptor  {
   ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // const token = this.authService.getToken();
+    const token = 'MOCK TOKEN';
     // if (token) {
     //   req = req.clone({
     //     setHeaders: {
@@ -30,9 +30,12 @@ export class Interceptor implements HttpInterceptor  {
     req = req.clone({
       setHeaders: {
         'Content-Type': 'application/json',
-        Accept : 'application/json'
+        'Accept' : 'application/json',
+        'Authorization': `Bearer ${token}`
       }
     });
+
+    // message = error.status === 0 ? 'status code 0 throw. unable to connect to api endpoint.' : error.error.message;
 
     return next.handle(req);
   }

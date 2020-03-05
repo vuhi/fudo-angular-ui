@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+// import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, filter, find, map } from 'rxjs/operators';
-import * as faker from 'faker';
 
-import {Ingredient, Recipe, Direction, Tag, TagColor, User, Res} from '../../models';
-// import { COLORS } from '../../models/tag.model';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {environment} from '../../../environments/environment';
+import { Recipe, Res } from '../../models';
+import { environment } from '../../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'

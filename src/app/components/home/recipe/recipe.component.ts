@@ -1,7 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { faTags, faQuestionCircle, faCheese, faFire, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import { faClipboard, faClipboardCheck, faQuestionCircle,
+  faThumbsUp, faFireAlt, faFire, faExclamationCircle,
+  faUtensils, faChartBar } from '@fortawesome/free-solid-svg-icons';
+
 import { ToastrService } from 'ngx-toastr';
 
 import { RecipeService } from '../../../services';
@@ -14,17 +17,23 @@ import { takeUntil } from 'rxjs/operators';
   templateUrl: './recipe.component.html',
   styleUrls: ['./recipe.component.scss']
 })
-export class RecipeComponent implements OnInit, OnDestroy {
+export class RecipeComponent implements OnInit,OnDestroy {
 
-  faTags = faTags;
+  faUtensils = faUtensils;
+  faClipboard = faClipboard;
+  faClipboardCheck = faClipboardCheck;
   faFire = faFire;
-  faCheese = faCheese;
+  faFireAlt = faFireAlt;
+  faChartBar = faChartBar;
+  faThumbsUp = faThumbsUp;
   faExclamationCircle = faExclamationCircle;
   faQuestionCircle = faQuestionCircle;
 
   recipe: Recipe;
   userPlaceHolder = '../../../../assets/user_img_place_holder.png';
   userRecipeHolder = '../../../../assets/recipe_img_place_holder.png';
+
+  isTagCheck = false;
 
   unsubscribe = new Subject<void>();
 
@@ -47,12 +56,11 @@ export class RecipeComponent implements OnInit, OnDestroy {
   useRecipePlaceHolder = (event) => event.target.src = this.userRecipeHolder;
 
   getRecipeById(recipeId: string) {
-    this.recipeService.getRecipeById(recipeId).pipe(takeUntil(this.unsubscribe))
-      .subscribe(
-      res => this.recipe = res,
+    this.recipeService.getRecipeById(recipeId).pipe(takeUntil(this.unsubscribe)).subscribe(
+      res => { this.recipe = res; console.log(res); },
       error => {
         this.toastr.warning('Redirecting to home page in 8s', 'Warning', { progressBar: true })
-          .onHidden.pipe(takeUntil(this.unsubscribe)).subscribe(() => this.router.navigate(['/']));
+          .onHidden.pipe(takeUntil(this.unsubscribe)).subscribe(() => this.router.navigate(['/', 'home', 'explore']));
         throw error;
       });
   }

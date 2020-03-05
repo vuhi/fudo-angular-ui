@@ -19,8 +19,17 @@ const routes: Routes = [
     component: AboutUsComponent
   },
   {
-    path: '**',
+    path: 'error',
     component: ErrorComponent
+  },
+  {
+    path: '**',
+    component: ErrorComponent,
+    data: {
+      status: 404,
+      title: 'Oops! Page not found',
+      message: 'The page you were looking for doesn\'t exist. You may have mistyped the address or the page may have moved.'
+    }
   }
 ];
 

@@ -1,6 +1,7 @@
 import {ErrorHandler, Inject, Injectable, Injector, NgZone} from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import {HttpErrorResponse} from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +13,22 @@ export class AppErrorHandler implements ErrorHandler {
   ) {}
 
   private get toastr(): ToastrService { return this.injector.get(ToastrService); }
+  private get router(): Router { return this.injector.get(Router); }
 
   handleError(error: any): void {
     this.ngZone.run(() => {
       let message;
       switch (true) {
         case error instanceof HttpErrorResponse:
-          message = error.status === 0 ? 'status code 0 throw. unable to connect to api endpoint.' : error.error.message;
+          if (error.status === 0) {
+            message = `${error.statusText}: No response from endpoint. It might be a connectivity problem.`;
+            this.router.navigate(
+              ['/', 'error'],
+              { queryParams: { status: 504, title: 'Yikes! Something wrong happened!', message: message}}
+            ).then();
+            return;
+          }
+          message = error.error.message;
           break;
         case error instanceof Error:
           message = error.message;

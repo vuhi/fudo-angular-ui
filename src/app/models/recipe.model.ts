@@ -1,5 +1,6 @@
 import { Tag } from './tag.model';
 import { User } from './user.model';
+import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 
 export interface Recipe {
   _id?: string;
@@ -31,6 +32,7 @@ export interface Ingredient {
   amount: string;
   tip?: string;
   isOpen?: boolean;
+  isCheck?: boolean
 }
 
 export interface Direction {

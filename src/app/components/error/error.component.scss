@@ -1,0 +1,130 @@
+.error-page {
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(120deg, #f6d365b8 0%, #ff6c419c 100%);
+
+  .error-card{
+    position: absolute;
+    top:10%;
+    left: 10%;
+    right: 10%;
+    bottom: 10%;
+    border-radius: 10px;
+    height: 80%;
+    padding: 4rem;
+
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 1rem;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 1rem 1rem 2rem .5rem rgba(0,0,0,0.2);
+
+    .error-img {
+      width: 100%;
+      align-self: end;
+    }
+
+    .content {
+      max-width: 600px;
+      text-align: center;
+
+      .icon-animation {
+        position: relative;
+        height: 5rem;
+        .sad-face {
+          position: absolute;
+          font-size: 5rem;
+          opacity: .8;
+          color: grey;
+          animation: roll 3s ease-in-out infinite;
+        }
+
+        .shadow {
+          position: absolute;
+          width: 5.5rem;
+          height: 1rem;
+          opacity: 0.2;
+          background: grey;
+          left: 50%;
+          bottom: -2.5rem;
+          border-radius: 70%;
+          animation: move 3s ease-in-out infinite;
+        }
+      }
+
+      .status {
+        font-size: 16vw;
+        font-weight: 600;
+        color: #ffffff;
+        line-height: 1em;
+        margin-top: 1rem;
+        -webkit-text-fill-color: #ffffff;
+        -webkit-text-stroke-width: 2px;
+        -webkit-text-stroke-color: #24aa86;
+      }
+
+      .title {
+        position: relative;
+        font-size: 1.5em;
+        margin-bottom: 20px;
+        color: #000000;
+        background: #ffffff;
+        font-weight: 400;
+        padding: 10px 20px;
+        display: inline-block;
+      }
+
+      .message {
+        color: #ff0562;
+        font-size: 1.2em;
+        font-weight: 500;
+      }
+
+      .btn {
+        position: relative;
+        display: inline-block;
+        padding: 10px 25px;
+        background: #ff0562;
+        color:#ffffff;
+        text-decoration: none;
+        margin-top: 25px;
+        border-radius: 25px;
+        border-bottom: 4px solid #d00d56;
+        transition: transform .2s ease-in-out;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+}
+
+@keyframes roll {
+  0% {
+    transform: rotate(0deg);
+    left: 25%;
+  }
+  50% {
+    left: 60%;
+    transform: rotate(168deg);
+  }
+  100% {
+    transform: rotate(0deg);
+    left: 25%;
+  }
+}
+
+@keyframes move {
+  0% {
+    left: 25%;
+  }
+  50% {
+    left: 60%;
+  }
+  100% {
+    left: 25%;
+  }
+}

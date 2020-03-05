@@ -1,71 +1,97 @@
-<div class="recipe-detail-card">
-  <div class="recipe-header">
-    <div class="recipe-info">
-      <div class="recipe-name">{{recipe?.name}}</div>
-      <div class="recipe-interaction">
-<!--        <div class="say-cheese mr-3">-->
-<!--          <app-interaction-icon [recipeId]="recipe?._id" [icon]="faCheese" [num]="recipe?.numberLiked"></app-interaction-icon>-->
-<!--        </div>-->
-<!--        <div class="say-cook">-->
-<!--          <app-interaction-icon [recipeId]="recipe?._id" [icon]="faFire" [num]="recipe?.numberTried"></app-interaction-icon>-->
-<!--        </div>-->
-        {{'ADD INTERACTION HERE'}}
+<div class="container-fluid d-flex justify-content-center">
+  <div class="recipe-detail-card" #recipe_detail_card *ngIf="recipe">
+    <div class="recipe-r-1">
+      <div class="recipe-header">
+        <div class="recipe-info">
+          <div class="recipe-owner">
+            <span class="text-muted h5">By {{recipe?.createdBy?.firstName}} {{recipe?.createdBy?.lastName}}</span>
+            <span class="text-monospace text-muted h6">&nbsp;-&nbsp;{{recipe?.createdBy?.userName}}</span>
+          </div>
+          <div class="recipe-name">{{recipe?.name}}</div>
+          <div>{{recipe?.description}}</div>
+          <mat-chip-list>
+            <mat-chip *ngFor="let tag of recipe?.tags"
+              [ngStyle]="{'background': tag?.color?.background, 'color': tag?.color?.text }" selected>
+              {{tag?.name}}
+            </mat-chip>
+          </mat-chip-list>
+          <div class="recipe-sub-info">
+            <div class="num-serving">
+              <fa-icon class="num-serving-icon" [icon]="faUtensils"></fa-icon>
+              <span>{{recipe?.numServing}}</span>
+            </div>
+            <div class="calories">
+              <fa-icon class="calories-icon" [icon]="faFireAlt"></fa-icon>
+              <span>{{recipe?.calorie}}</span>
+            </div>
+            <div class="level">
+              <fa-icon class="level-icon" [icon]="faChartBar"></fa-icon>
+              <span>{{recipe?.level}}</span>
+            </div>
+          </div>
+          <div class="recipe-interaction d-flex flex-row">
+            <div class="like-emoji mr-5">
+              <app-interaction-icon [recipeId]="recipe?._id" [icon]="faThumbsUp" [interactedColor]="'#3884ff'" [num]="99999"></app-interaction-icon>
+            </div>
+            <div class="cook-emoji">
+              <app-interaction-icon [recipeId]="recipe?._id" [icon]="faFire" [interactedColor]="'#ff4747'" [num]="10"></app-interaction-icon>
+            </div>
+          </div>
+        </div>
+        <img class="recipe-image" [src]="recipe?.image" alt="Recipe Image" (error)="useRecipePlaceHolder($event)">
       </div>
     </div>
-    <div class="recipe-owner">
-      <img class="owner-img" [src]="recipe?.createdBy?.image" alt="User Avatar" (error)="useUserPlaceHolder($event)">
-      <div class="owner-name">{{recipe?.createdBy?.userName}}</div>
+    <div class="recipe-r-2">
+      <div class="recipe-prep">
+        <div class="recipe-time-icon"><i class="material-icons">room_service</i><span>PREP TIME</span></div>
+        <div>{{recipe?.prepTime}} minutes</div>
+      </div>
+      <div class="recipe-cook">
+        <div class="recipe-time-icon"><i class="material-icons">outdoor_grill</i><span>COOKING TIME</span></div>
+        <div>{{recipe?.cookTime}} minutes</div>
+      </div>
+      <div class="recipe-ready">
+        <div class="recipe-time-icon"><i class="material-icons">restaurant_menu</i><span>READY TIME</span></div>
+        <div>{{recipe?.readyTime}} minutes</div>
+      </div>
     </div>
-  </div>
-  <div class="recipe-r-1">
-    <img class="recipe-image" [src]="recipe?.image" alt="Recipe Image" (error)="useRecipePlaceHolder($event)">
-    <div class="recipe-description">
-      {{recipe?.description}}
-      <mat-chip-list class="mt-2 ml-auto">
-        <mat-chip *ngFor="let tag of recipe?.tags" [ngStyle]="{'background': tag?.color}" selected>{{tag?.name}}</mat-chip>
-      </mat-chip-list>
+    <div class="recipe-r-3">
+      <div class="header">
+        <span class="">#</span><span class="title">Ingredients</span>
+      </div>
+      <div class="recipe-ingredients">
+        <ng-container *ngFor="let ingredient of recipe?.ingredients">
+          <div class="ingredient" placement="top" triggers=""
+            [popover]="ingredient?.tip" [popoverTitle]="'Tips'" [isOpen]="ingredient?.isOpen">
+            <fa-icon class="tag-icon mr-3" [icon]="ingredient?.isCheck ? faClipboardCheck : faClipboard" [size]="'lg'"
+              (click)="ingredient.isCheck = !ingredient.isCheck;">
+            </fa-icon>
+            <span class="amount">{{ingredient?.amount}}</span>
+            <span class="unit">{{ingredient?.unit}}</span>
+            <span class="ingredient-name">{{ingredient?.name}}</span>
+            <fa-icon class="tip" *ngIf="ingredient?.tip" [icon]="faQuestionCircle" [size]="'lg'"
+              (click)="ingredient.isOpen = !ingredient.isOpen">
+            </fa-icon>
+          </div>
+        </ng-container>
+      </div>
     </div>
-  </div>
-  <div class="recipe-r-2">
-    <div class="recipe-prep">
-      <div class="recipe-time-icon"><i class="material-icons">room_service</i><span>PREP TIME</span></div>
-      <div>{{recipe?.prepTime}} minutes</div>
-    </div>
-    <div class="recipe-cook">
-      <div class="recipe-time-icon"><i class="material-icons">outdoor_grill</i><span>COOKING TIME</span></div>
-      <div>{{recipe?.cookTime}} minutes</div>
-    </div>
-    <div class="recipe-ready">
-      <div class="recipe-time-icon"><i class="material-icons">restaurant_menu</i><span>READY TIME</span></div>
-      <div>{{recipe?.readyTime}} minutes</div>
-    </div>
-  </div>
-  <div class="recipe-r-3">
-    <h4>Ingredients</h4>
-    <div class="recipe-ingredients">
-      <ng-container *ngFor="let ingredient of recipe?.ingredients">
-        <div class="ingredient" placement="top" triggers=""
-             [popover]="ingredient?.tip" [popoverTitle]="'Tips'" [isOpen]="ingredient?.isOpen">
-          <fa-icon [icon]="faTags" [flip]="'both'" class="mr-3"></fa-icon>
-          <span class="amount">{{ingredient?.amount}}</span>
-          <span class="unit">{{ingredient?.unit}}</span>
-          <span class="ingredient-name">{{ingredient?.name}}</span>
-          <fa-icon *ngIf="ingredient?.tip" [icon]="faQuestionCircle" class="ml-1" [size]="'lg'" (click)="ingredient.isOpen = !ingredient.isOpen"></fa-icon>
-        </div>
-      </ng-container>
-    </div>
-  </div>
-  <div class="recipe-r-4">
-    <h4>Direction</h4>
-    <div class="recipe-direction">
-      <ng-container *ngFor="let directions of recipe?.directions">
-        <div class="direction" placement="top" triggers=""
-             [popover]="directions?.tip" [popoverTitle]="'Tips'" [isOpen]="directions?.isOpen">
-          <div class="directions-number">{{directions?.index}}</div>
-          <div class="directions-description">{{directions?.direction}}</div>
-          <fa-icon *ngIf="directions?.tip" [icon]="faExclamationCircle" class="mx-3" [size]="'lg'" (click)="directions.isOpen = !directions.isOpen"></fa-icon>
-        </div>
-      </ng-container>
+    <div class="recipe-r-4">
+      <div class="header">
+        <span class="">#</span><span class="title">Directions</span>
+      </div>
+      <div class="recipe-direction">
+        <ng-container *ngFor="let directions of recipe?.directions">
+          <div class="direction" placement="top" triggers=""
+               [popover]="directions?.tip" [popoverTitle]="'Tips'" [isOpen]="directions?.isOpen">
+            <div class="directions-number">{{directions?.index}}</div>
+            <div class="directions-description">{{directions?.direction}}</div>
+            <fa-icon class="tip" *ngIf="directions?.tip" [icon]="faExclamationCircle" [size]="'lg'" (click)="directions.isOpen = !directions.isOpen"></fa-icon>
+          </div>
+        </ng-container>
+      </div>
     </div>
   </div>
 </div>
+
+

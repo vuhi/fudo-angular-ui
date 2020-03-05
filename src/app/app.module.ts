@@ -11,6 +11,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { ErrorComponent } from './components/error/error.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [ AppComponent, AboutUsComponent, ErrorComponent ],
@@ -19,6 +20,8 @@ import { ErrorComponent } from './components/error/error.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+
+    FontAwesomeModule,
     PopoverModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 8000,

@@ -1,1 +1,15 @@
-<p>error works!</p>
+<div class="error-page">
+  <div class="error-card">
+    <img class="error-img" src="../../../assets/error_img.png">
+    <div class="content">
+      <div class="icon-animation">
+        <fa-icon class="sad-face" [icon]="faSadTear"></fa-icon>
+        <div class="shadow"></div>
+      </div>
+      <div class="status">{{status}}</div>
+      <div class="title">{{title}}</div>
+      <p class="message">{{message}}</p>
+      <a class="btn" [routerLink]="['/', 'home', 'explore']">Back To Home</a>
+    </div>
+  </div>
+</div>

@@ -42,7 +42,7 @@ $fudo-angular-ui-theme: mat-light-theme($fudo-angular-ui-primary, $fudo-angular-
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-html, body { height: 100%; }
+html, body { height: 100%;   background: #FAF7F2;}
 body { margin: 0; font-family: 'Montserrat', sans-serif; 	text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased;}
 
 .custom-toastr {
